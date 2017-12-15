@@ -15,12 +15,14 @@ class Divide(object):
         dividend, divisor = abs(dividend), abs(divisor)
         res = 0
         while dividend >= divisor:
+            print('dividend: {}, divisor: {}, result: {}'.format(dividend, divisor, res))
             temp, i = divisor, 1
             while dividend >= temp:
                 dividend -= temp
                 res += i
                 i <<= 1
                 temp <<= 1
+                print('\tdividend: {}, divisor: {}, result: {}'.format(dividend, temp, res))
         if not positive:
             res = -res
         return min(max(MIN_INT32, res), MAX_INT32)
@@ -28,4 +30,4 @@ class Divide(object):
 if __name__ == "__main__":
 
     d = Divide()
-    print(d.divide(-2147483648, 1))
+    print(d.divide(10345, 23))
