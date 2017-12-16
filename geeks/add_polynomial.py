@@ -18,30 +18,104 @@
 # Output:
 #         5x^3 + 4x^2 + 5x^1 + 7x^0
 
+# from boundinnerclass import BoundInnerClass
 
-class PolyNomial(object):
+
+class PolyNomialTerms(object):
     def __init__(self, coeff=0.0, power=0.0):
         self.coeff = coeff
         self.power = power
-        self.next = None
 
     def __str__(self):
-        return self._to_string()
-
-    def _to_string(self):
-        rep = str(self.coeff) + 'x^' + str(self.power)
-        tail = self.next
-        while tail is not None:
-            if tail.coeff < 0:
-                rep += ' - ' + str(abs(tail.coeff)) + 'x^' + str(tail.power)
-            else:
-                rep += ' + ' + str(tail.coeff) + 'x^' + str(tail.power)
-            tail = tail.next
+        rep = ''
+        if self.coeff > 0:
+            rep = '+ ' + str(self.coeff)
+        else:
+            rep = '- ' + str(abs(self.coeff))
+        if self.coeff != 0.0:
+            rep += 'x^' + str(self.power)
         return rep
 
+    def __eq__(self, other):
+        return other.coeff == self.coeff and other.power == self.power
+
+
+class PolyNomial(object):
+
+    def __init__(self):
+        self.terms = []
+
+    def __str__(self):
+        return ' '.join(str(term) for term in self.terms).strip('+ ')
+
+    def append(self, coeff, power):
+        poly_term = PolyNomialTerms(coeff, power)
+        self.terms.append(poly_term)
+
+    def insert(self, coeff, power):
+        poly_term = PolyNomialTerms(coeff, power)
+        at = 0
+        for at, term in enumerate(self.terms):
+            if term.power < poly_term.power:
+                break
+        if at < len(self.terms) and self.terms[at].power > poly_term.power:
+            at = at + 1
+        self.terms.insert(at, poly_term)
+
+    def __getitem__(self, index):
+        return self.terms[index]
+
+    def __len__(self):
+        return len(self.terms)
+
+    def __add__(self, that):
+        result = PolyNomial()
+        i = 0
+        j = 0
+
+        while j < len(that):
+            if i > len(self.terms) - 1:
+                break
+            if self.terms[i].power == that[j].power:
+                result.insert(self.terms[i].coeff + that[j].coeff, self.terms[i].power)
+                i += 1
+                j += 1
+            elif self.terms[i].power > that[j].power:
+                result.insert(self.terms[i].coeff, self.terms[i].power)
+                i += 1
+            else:
+                result.insert(that[j].coeff, that[j].power)
+                j += 1
+
+        while i < len(self.terms):
+            result.insert(self.terms[i].coeff, self.terms[i].power)
+            i += 1
+
+        while j < len(that):
+            result.insert(that[j].coeff, that[j].power)
+            j += 1
+        return result
+
+    def __eq__(self, other):
+        return other.terms == self.terms
+
+
+
 if __name__ == "__main__":
-    root = PolyNomial(5,4)
-    root.next = PolyNomial(-4, 3)
-    root.next.next = PolyNomial(3,2)
-    root.next.next.next = PolyNomial(2,1)
-    print(root)
+
+    poly1 = PolyNomial()
+    poly1.insert(3, 2)
+    poly1.insert(-4, 5)
+    poly1.insert(3, -8)
+    poly1.insert(7, 6)
+    poly1.insert(4, 9)
+    poly1.insert(2,1)
+
+
+    poly2 = PolyNomial()
+    poly2.insert(4, 7)
+    poly2.insert(-10, 6)
+
+    print(poly1)
+    print(poly2)
+    print(poly1 + poly2)
