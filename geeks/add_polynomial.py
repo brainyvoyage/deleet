@@ -52,7 +52,7 @@ class PolyNomial(object):
         poly_term = PolyNomialTerms(coeff, power)
         self.terms.append(poly_term)
 
-    def insert(self, coeff, power):
+    def insert(self, coeff, power=0):
         poly_term = PolyNomialTerms(coeff, power)
         at = 0
         for at, term in enumerate(self.terms):
@@ -109,12 +109,12 @@ if __name__ == "__main__":
     poly1.insert(3, -8)
     poly1.insert(7, 6)
     poly1.insert(4, 9)
-    poly1.insert(2,1)
+    poly1.insert(2)
 
 
     poly2 = PolyNomial()
     poly2.insert(4, 7)
-    poly2.insert(-10, 6)
+    poly2.insert(-10)
 
     print(poly1)
     print(poly2)
