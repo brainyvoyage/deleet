@@ -1,7 +1,6 @@
 from geeks.constants import *
 from geeks.node import Node
 
-
 def is_bst(root_node):
     def is_bst_util(node, bst_min, bst_max):
         if node is None:
@@ -15,7 +14,6 @@ def is_bst(root_node):
 
     return is_bst_util(root_node, MIN_INT64, MAX_INT64)
 
-
 def inorder(root_node):
     def inorder_util(node, result):
         if node is None:
@@ -27,7 +25,6 @@ def inorder(root_node):
         return result
     return inorder_util(root_node, [])
 
-
 def preorder(root_node):
     def preorder_util(node, result):
         if node is None:
@@ -38,7 +35,6 @@ def preorder(root_node):
         return result
     return preorder_util(root_node, [])
 
-
 def postorder(root_node):
     def postorder_util(node, result):
         if node is None:
@@ -48,7 +44,6 @@ def postorder(root_node):
         result.append(node.data)
         return result
     return postorder_util(root_node, [])
-
 
 def breadth_first_search(root_node):
     result = []
@@ -67,6 +62,82 @@ def breadth_first_search(root_node):
             queue.append(top.right)
     return result
 
+def insert(root, node):
+    if root is None:
+        return node
+    if root.data >= node.data:
+        root.left = insert(root.left, node)
+    else:
+        root.right = insert(root.right, node)
+    return  root
+
+def find_minimum(root):
+    min_node = root
+    while min_node.left is not None:
+        min_node = min_node.left
+    return min_node
+
+def delete_node(root, node_key):
+    if root is None:
+        return root
+
+    if root.data > node_key:
+        root.left = delete_node(root.left, node_key)
+
+    elif root.data < node_key:
+        root.right = delete_node(root.right, node_key)
+
+    else:
+        # node_key found
+        # if root.left is None and root.right is None:
+        #     root = None
+        #     return root
+        # Node to be deleted has only one child
+        # Replace the node with the child and delete the node
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp
+
+        elif root.right is None:
+
+            temp = root.left
+            root = None
+            return temp
+        # Node to be deleted has two child
+
+        # Node with two children: Get the inorder successor
+        # (smallest in the right subtree)
+        inorder_successor = find_minimum(root.right)
+
+        # Copy the inorder successor's content to this node
+        root.data = inorder_successor.data
+
+        # Delete the inorder successor
+        root.right = delete_node(root.right, inorder_successor.data)
+    return root
+
+def find_least_common_ancestor(root, node1, node2):
+
+    if root is None:
+        return root
+
+    if root.data == node1.data or root.data == node2.data:
+        return root
+
+    left_lca = find_least_common_ancestor(root.left, node1, node2)
+    right_lca = find_least_common_ancestor(root.right, node1, node2)
+
+    if left_lca and right_lca:
+        return root
+
+    return left_lca if left_lca is not None else right_lca
+
+def inorder_sucessor(node):
+    rt_node = node.right
+    while rt_node.left is not None:
+        rt_node = rt_node.left
+    return rt_node
 
 if __name__ == "__main__":
     root = Node(4)
@@ -85,3 +156,21 @@ if __name__ == "__main__":
     print('Post-order: {}'.format(res))
     res = breadth_first_search(root)
     print('BFS: {}'.format(res))
+
+    bst = Node(4)
+    bst = insert(bst, Node(2))
+    bst = insert(bst, Node(7))
+    bst = insert(bst, Node(1))
+    bst = insert(bst, Node(5))
+    bst = insert(bst, Node(3))
+    print('Is valid: {}'.format(is_bst(bst)))
+    res = inorder(bst)
+    print('In-order = {}'.format(res))
+    lca = find_least_common_ancestor(bst, Node(2), Node(3))
+    print(lca.data)
+
+    print('BFS: {}'.format(breadth_first_search(bst)))
+    bfs = delete_node(bst, 4)
+    print('BFS: {}'.format(breadth_first_search(bst)))
+    print('Is valid: {}'.format(is_bst(bst)))
+
