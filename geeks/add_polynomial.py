@@ -39,7 +39,6 @@ class PolyNomialTerms(object):
     def __eq__(self, other):
         return other.coeff == self.coeff and other.power == self.power
 
-
 class PolyNomial(object):
 
     def __init__(self):
@@ -98,8 +97,6 @@ class PolyNomial(object):
 
     def __eq__(self, other):
         return other.terms == self.terms
-
-
 
 if __name__ == "__main__":
 
