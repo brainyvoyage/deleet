@@ -7,3 +7,6 @@ class Node(object):
 
     def __str__(self):
         return 'Node({})'.format(self.data)
+
+    def __eq__(self, other):
+        return self.data == other.data
