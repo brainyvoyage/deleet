@@ -60,7 +60,7 @@ def breadth_first_search(root_node):
 
     while len(queue) > 0:
         top = queue.popleft()
-        result.append(top.data)
+        result.append(top)
         if top.left is not None:
             queue.append(top.left)
         if top.right is not None:
