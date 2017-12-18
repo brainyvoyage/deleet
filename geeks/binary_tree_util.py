@@ -133,11 +133,18 @@ def find_least_common_ancestor(root, node1, node2):
 
     return left_lca if left_lca is not None else right_lca
 
-def inorder_sucessor(node):
+def find_level(root_node, node_key):
+    def find_level_helper(root, node_key):
+        if root is None:
+            return
+
+    if root.data == node_key
+def inorder_successor(node):
     rt_node = node.right
     while rt_node.left is not None:
         rt_node = rt_node.left
     return rt_node
+
 
 if __name__ == "__main__":
     root = Node(4)
