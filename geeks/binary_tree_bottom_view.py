@@ -92,5 +92,4 @@ if __name__ == "__main__":
     root.left.right.right = n14
 
     bv = bottom_view(root)
-    for x in bv:
-        print(x)
+    print([str(x) for x in bv])
