@@ -1,6 +1,7 @@
 from geeks.constants import *
 from geeks.node import Node
 
+
 def is_bst(root_node):
     def is_bst_util(node, bst_min, bst_max):
         if node is None:
@@ -14,6 +15,7 @@ def is_bst(root_node):
 
     return is_bst_util(root_node, MIN_INT64, MAX_INT64)
 
+
 def inorder(root_node):
     def inorder_util(node, result):
         if node is None:
@@ -25,6 +27,7 @@ def inorder(root_node):
         return result
     return inorder_util(root_node, [])
 
+
 def preorder(root_node):
     def preorder_util(node, result):
         if node is None:
@@ -35,6 +38,7 @@ def preorder(root_node):
         return result
     return preorder_util(root_node, [])
 
+
 def postorder(root_node):
     def postorder_util(node, result):
         if node is None:
@@ -44,6 +48,7 @@ def postorder(root_node):
         result.append(node.data)
         return result
     return postorder_util(root_node, [])
+
 
 def breadth_first_search(root_node):
     result = []
@@ -62,6 +67,7 @@ def breadth_first_search(root_node):
             queue.append(top.right)
     return result
 
+
 def insert(root, node):
     if root is None:
         return node
@@ -71,11 +77,13 @@ def insert(root, node):
         root.right = insert(root.right, node)
     return  root
 
+
 def find_minimum(root):
     min_node = root
     while min_node.left is not None:
         min_node = min_node.left
     return min_node
+
 
 def delete_node(root, node_key):
     if root is None:
@@ -108,14 +116,15 @@ def delete_node(root, node_key):
 
         # Node with two children: Get the inorder successor
         # (smallest in the right subtree)
-        inorder_successor = find_minimum(root.right)
+        _inorder_successor = find_minimum(root.right)
 
         # Copy the inorder successor's content to this node
-        root.data = inorder_successor.data
+        root.data = _inorder_successor.data
 
         # Delete the inorder successor
-        root.right = delete_node(root.right, inorder_successor.data)
+        root.right = delete_node(root.right, _inorder_successor.data)
     return root
+
 
 def find_least_common_ancestor(root, node1, node2):
 
