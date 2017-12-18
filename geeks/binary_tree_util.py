@@ -133,12 +133,22 @@ def find_least_common_ancestor(root, node1, node2):
 
     return left_lca if left_lca is not None else right_lca
 
-def find_level(root_node, node_key):
-    def find_level_helper(root, node_key):
-        if root is None:
-            return
 
-    if root.data == node_key
+def find_level(root_node, node_key):
+    def find_level_helper(root, node_key, level):
+        if root is None:
+            return -1
+        if root.data == node_key:
+            return level + 1
+        if root.data > node_key:
+            return find_level_helper(root.left, node_key, level + 1)
+        elif root.data < node_key:
+            return find_level_helper(root.right, node_key, level + 1)
+        else:
+            return -1
+    return find_level_helper(root_node, node_key, -1)
+
+
 def inorder_successor(node):
     rt_node = node.right
     while rt_node.left is not None:
@@ -173,11 +183,16 @@ if __name__ == "__main__":
     print('Is valid: {}'.format(is_bst(bst)))
     res = inorder(bst)
     print('In-order = {}'.format(res))
-    lca = find_least_common_ancestor(bst, Node(2), Node(3))
-    print(lca.data)
+    print('BFS: {}'.format(breadth_first_search(bst)))
+    n1, n2 = Node(5), Node(1)
+    lca = find_least_common_ancestor(bst, n1, n2)
+    print('Least common anccesstor of {} and {} is {}'.format(n1, n2, lca))
 
     print('BFS: {}'.format(breadth_first_search(bst)))
     bfs = delete_node(bst, 4)
     print('BFS: {}'.format(breadth_first_search(bst)))
-    print('Is valid: {}'.format(is_bst(bst)))
+    print('Is valid BST: {}'.format(is_bst(bst)))
+    level_node_key = 6
+    level = find_level(bst, level_node_key)
+    print('Level of {} is {}'.format(level_node_key, level))
 
