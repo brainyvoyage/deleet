@@ -1,20 +1,22 @@
-# http://www.geeksforgeeks.org/add-greater-values-every-node-given-bst/
-# Given a Binary Search Tree (BST), modify it so that all greater values in the
-# given BST are added to every node. For example, consider the following BST.
-#
-#               50
-#            /      \
-#          30        70
-#         /   \      /  \
-#       20    40    60   80
-#
-# The above tree should be modified to following
-#
-#               260
-#            /      \
-#          330        150
-#         /   \       /  \
-#       350   300    210   80
+"""
+http://www.geeksforgeeks.org/add-greater-values-every-node-given-bst/
+Given a Binary Search Tree (BST), modify it so that all greater values in the
+given BST are added to every node. For example, consider the following BST.
+
+              50
+           /      \
+         30        70
+        /   \      /  \
+      20    40    60   80
+
+The above tree should be modified to following
+
+              260
+           /      \
+         330        150
+        /   \       /  \
+      350   300    210   80
+"""
 
 
 from geeks.binary_tree_util import is_bst, breadth_first_search, inorder

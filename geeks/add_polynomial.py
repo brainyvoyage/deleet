@@ -1,25 +1,24 @@
-# http://www.geeksforgeeks.org/adding-two-polynomials-using-linked-list/
-# Adding two polynomials using Linked List
-# 2.5
-# Given two polynomial numbers represented by a linked list.
-# Write a function that add these lists means add the coefficients
-# who have same variable powers.
-#
-# Example:
-#
-# Input:
-#      1st number = 5x^2 + 4x^1 + 2x^0
-#      2nd number = 5x^1 + 5x^0
-# Output:
-#         5x^2 + 9x^1 + 7x^0
-# Input:
-#      1st number = 5x^3 + 4x^2 + 2x^0
-#      2nd number = 5x^1 + 5x^0
-# Output:
-#         5x^3 + 4x^2 + 5x^1 + 7x^0
+"""
+http://www.geeksforgeeks.org/adding-two-polynomials-using-linked-list/
+Adding two polynomials using Linked List
+2.5
+Given two polynomial numbers represented by a linked list.
+Write a function that add these lists means add the coefficients
+who have same variable powers.
 
-# from boundinnerclass import BoundInnerClass
+Example:
 
+Input:
+     1st number = 5x^2 + 4x^1 + 2x^0
+     2nd number = 5x^1 + 5x^0
+Output:
+        5x^2 + 9x^1 + 7x^0
+Input:
+     1st number = 5x^3 + 4x^2 + 2x^0
+     2nd number = 5x^1 + 5x^0
+Output:
+        5x^3 + 4x^2 + 5x^1 + 7x^0
+"""
 
 class PolyNomialTerms(object):
     def __init__(self, coeff=0.0, power=0.0):

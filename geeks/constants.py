@@ -2,5 +2,5 @@
 MAX_INT32 = (1 << 31) - 1
 MIN_INT32 = -MAX_INT32 - 1
 
-MAX_INT64 = (1 << 31) - 1
+MAX_INT64 = (1 << 63) - 1
 MIN_INT64 = -MAX_INT64 - 1
