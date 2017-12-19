@@ -72,11 +72,13 @@ if __name__ == "__main__":
     root.right = n22
     root.left.left = n5
     root.left.right = n3
+    root.left.random = n20
     root.right.left = n4
     root.right.right = n25
     root.right.random = n14
     root.left.right.left = n10
     root.left.right.right = n14
+    root.left.right.random = n5
 
     clone = clone_binary_tree(root)
 
