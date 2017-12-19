@@ -21,7 +21,11 @@ class Node(object):
             right_data = self.right.data
         else:
             right_data = 'null'
-        return 'Node({})[{}, {}]:{}'.format(self.data, left_data, right_data, id(self) % 10000)
+        if self.random is not None:
+            random_data = self.random.data
+        else:
+            random_data = 'null'
+        return 'Node({})[{}, {}, {}]:{}'.format(self.data, left_data, right_data, random_data, id(self) % 10000)
 
     def __eq__(self, other):
         return self.data == other.data
@@ -34,7 +38,7 @@ def clone_binary_tree(root):
     clone_root = Node(0)
 
     from collections import deque
-
+    orig_to_clone = {}
     original_queue = deque()
     copy_queue = deque()
     original_queue.append(root)
@@ -44,7 +48,7 @@ def clone_binary_tree(root):
         top = original_queue.popleft()
         clone_top = copy_queue.popleft()
         clone_top.data = top.data
-
+        orig_to_clone[id(top)] = (top, clone_top)
         if top.left is not None:
             original_queue.append(top.left)
             clone_top.left = Node(0)
@@ -54,6 +58,10 @@ def clone_binary_tree(root):
             clone_top.right = Node(0)
             copy_queue.append(clone_top.right)
 
+    for key in orig_to_clone.keys():
+        org, cln = orig_to_clone.get(key)
+        if org.random is not None:
+            cln.random = orig_to_clone[id(org.random)][1]
     return clone_root
 
 if __name__ == "__main__":
@@ -66,6 +74,7 @@ if __name__ == "__main__":
     root.left.right = n3
     root.right.left = n4
     root.right.right = n25
+    root.right.random = n14
     root.left.right.left = n10
     root.left.right.right = n14
 
