@@ -37,6 +37,9 @@ class Heap(object):
     def __str__(self):
         return ', '.join([str(x) for x in self.heap])
 
+    def __len__(self):
+        return len(self.heap)
+
     def _heapify(self, i):
         left = Heap.get_left_child(i)
         right = Heap.get_right_child(i)
@@ -93,7 +96,7 @@ class Heap(object):
 
 
 if __name__ == "__main__":
-    max_heap = Heap([2, 8, 4, 14, 1, 7, 19, 9, 10, 3, 16, 19, 18], greater_than)
+    max_heap = Heap([2, 8, 4, 14, 1, 7, 19, 9, 10, 3, 16, 19, 18], less_than)
     print(max_heap)
     max_heap.change_key(4, 50)
     print(max_heap)
