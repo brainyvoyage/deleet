@@ -16,11 +16,9 @@ Output: root of below tree
         6
 Explanation:
 Index of -1 is 5.  So 5 is root.
-5 is present at indexes 1 and 2.  So 1 and 2 are
-children of 5.
+5 is present at indexes 1 and 2.  So 1 and 2 are children of 5.
 1 is present at index 0, so 0 is child of 1.
-2 is present at indexes 3 and 4.  So 3 and 4 are
-children of 2.
+2 is present at indexes 3 and 4.  So 3 and 4 are children of 2.
 3 is present at index 6, so 6 is child of 3.
 
 

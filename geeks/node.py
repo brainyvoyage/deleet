@@ -6,6 +6,9 @@ class Node(object):
         self.right = None
 
     def __str__(self):
+        return 'Node({})'.format(self.data)
+
+    def debug_str(self):
         return 'Node({})[L: {}, R: {}]'.format(self.data, self.left, self.right)
 
     def __eq__(self, other):
