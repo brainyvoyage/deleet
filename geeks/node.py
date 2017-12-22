@@ -4,6 +4,7 @@ class Node(object):
         self.data = data
         self.left = None
         self.right = None
+        self.parent = None
 
     def __str__(self):
         return 'Node({})'.format(self.data)
