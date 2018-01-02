@@ -23,8 +23,10 @@ from geeks.binary_tree_util import is_bst, breadth_first_search, inorder
 from geeks.node import Node
 
 
+# Space complexity: O(n)
+# Time complexity: O(2n)
 def add_greater(root):
-    if root is Node:
+    if root is None:
         return
     if not is_bst(root):
         print('Not a valid BST')
@@ -41,10 +43,29 @@ def add_greater(root):
     ordered = inorder(root)
     total_nodes = len(ordered)
     for index in range(total_nodes - 2, 0, -1):
-        if index < total_nodes:
-            ordered[index].data += ordered[index + 1].data
+        # if index < total_nodes:
+        ordered[index].data += ordered[index + 1].data
     ordered[0].data += ordered[1].data
     return ordered
+
+
+# Space complexity: O(1)
+# Time complexity: O(n)
+def recursive_add_greater(root):
+    if root is None:
+        return
+
+    def reversed_inorder(root_node):
+        def rev_inorder_util(node, accum):
+            if node is None:
+                return accum
+            accum = rev_inorder_util(node.right, accum)
+            node.data += accum
+            accum = rev_inorder_util(node.left, node.data)
+            return accum
+        rev_inorder_util(root_node, 0)
+
+    reversed_inorder(root)
 
 if __name__ == "__main__":
     root = Node(50)
@@ -54,6 +75,11 @@ if __name__ == "__main__":
     root.left.right = Node(40)
     root.right.left = Node(60)
     root.right.right = Node(80)
-    _ = add_greater(root)
-    print('BFS: {}'.format(breadth_first_search(root)))
+    bfs = [x.data for x in breadth_first_search(root)]
+    print('BFS (before): {}'.format(bfs))
+
+    # _ = add_greater(root)
+    recursive_add_greater(root)
+    bfs = [x.data for x in breadth_first_search(root)]
+    print('BFS (after): {}'.format(bfs))
     print('Inorder: {}'.format(inorder(root)))
