@@ -28,8 +28,9 @@ def get_cost(rope_segments):
     while len(min_heap) > 1:
         smallest_seg = min_heap.extract_top()
         second_small_seg = min_heap.extract_top()
-        cost += smallest_seg + second_small_seg
-        min_heap.insert(smallest_seg + second_small_seg)
+        seg_cost = smallest_seg + second_small_seg
+        cost += seg_cost
+        min_heap.insert(seg_cost)
     return cost
 
 if __name__ == "__main__":
