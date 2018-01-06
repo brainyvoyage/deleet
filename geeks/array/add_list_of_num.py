@@ -12,9 +12,7 @@ def add(a, b):
         return digit_sum, carry
     result = []
     carry = 0
-
     short = min(len(a), len(b))
-
     for i in range(1, short + 1):
         digit_sum, carry = sum_digit(a[-i], b[-i], carry=carry)
         result.append(digit_sum)
@@ -28,8 +26,11 @@ def add(a, b):
             result.append(digit_sum)
     if carry > 0:
         result.append(carry)
-    return [x for x in reversed(result)]
+    print([x for x in reversed(result)])
 
 if __name__ == "__main__":
-    x = add([2,9,0,4], [5, 1, 0])
-    print(x)
+    add([9, 0, 8, 4, 4, 1, 2], [6, 5, 6])
+    add([6, 5, 6], [9, 0, 8, 4, 4, 1, 2])
+
+    add([], [6, 9, 8])
+
