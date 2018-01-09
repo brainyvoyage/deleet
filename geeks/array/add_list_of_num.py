@@ -26,11 +26,10 @@ def add(a, b):
             result.append(digit_sum)
     if carry > 0:
         result.append(carry)
-    print([x for x in reversed(result)])
+    return([x for x in reversed(result)])
 
 if __name__ == "__main__":
-    add([9, 0, 8, 4, 4, 1, 2], [6, 5, 6])
-    add([6, 5, 6], [9, 0, 8, 4, 4, 1, 2])
-
-    add([], [6, 9, 8])
+    print(add([9, 0, 8, 4, 4, 1, 2], [6, 5, 6]))
+    print(add([6, 5, 6], [9, 0, 8, 4, 4, 1, 2]))
+    print(add([], [6, 9, 8]))
 
