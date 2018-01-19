@@ -70,6 +70,7 @@ class PreorderToTreeConverter(object):
                 current_root = PreorderToTreeConverter.get_insertion_node(current_root)
         return self.root
 
+
 if __name__ == "__main__":
     from geeks.binary_tree_util import breadth_first_search
     pre = [10, 30, 20, 5, 15]

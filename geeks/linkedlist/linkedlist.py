@@ -1,17 +1,23 @@
 from geeks.linkedlist.node import Node
 
+
 class LinkedList(object):
     def __init__(self, head_data):
         self.head = Node(head_data)
+        self.tail = None
 
-    def insert_left(self, node):
-        if self.head is None:
+    def insert_right(self, node):
+        if self.head is None or node is None:
             return
-        current = self.head
-        while current.left is not None:
-            current = current.left
 
-        current.left = node
+        if self.tail is None:
+            node.left = self.head
+            self.head.right = node
+            self.tail = node
+        else:
+            node.left = self.tail
+            self.tail.right = node
+            self.tail = self.tail.right
 
     def get_node(self, index):
         if self.head is None:
@@ -20,7 +26,7 @@ class LinkedList(object):
         current = self.head
         while current_index != index and current is not None:
             current_index += 1
-            current = current.left
+            current = current.right
         if current_index == index:
             return current
         else:
@@ -32,9 +38,9 @@ class LinkedList(object):
 
         current = self.head
         to_string = ''
-        while current is not None and current.left is not None:
+        while current is not None and current.right is not None:
             to_string += str(current) + ' -> '
-            current = current.left
+            current = current.right
         # if current != self.head:
         to_string += str(current)
 
