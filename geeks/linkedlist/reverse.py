@@ -12,12 +12,8 @@ from geeks.linkedlist.node import Node
 def print_reverse(head_node):
     if head_node is None:
         return
-    if head_node.right is None:
-        print(head_node)
-        return
-    else:
-        print_reverse(head_node.right)
-        print(head_node)
+    print_reverse(head_node.right)
+    print(head_node)
 
 
 if __name__ == "__main__":
