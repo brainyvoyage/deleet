@@ -15,11 +15,11 @@ Input: arr[] = {1, 3, 0, 2, 5}
 Output:        {_, 1, _, 0, 2}
 """
 
+
 def find_smallest(arr):
     small_stack = []
 
-    result = []
-    result.append(None)
+    result = [None]
     small_stack.append(arr[0])
 
     for i in range(1, len(arr)):
@@ -33,8 +33,9 @@ def find_smallest(arr):
 
     return [x if x is not None else '_' for x in result]
 
+
 if __name__ == "__main__":
-    arr = [7, 6, 4, 10, 2, 5]
-    result = find_smallest(arr)
-    print(result)
+    input_data = [7, 6, 4, 10, 2, 5]
+    output = find_smallest(input_data)
+    print(output)
     print(find_smallest([1, 3, 0, 2, 5]))
