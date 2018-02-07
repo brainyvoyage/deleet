@@ -13,3 +13,10 @@ set(TEST_LIBS QuickStart)
 add_executable(test_main ${TEST_SOURCES})
 target_link_libraries(test_main ${TEST_LIBS} ${Boost_LIBRARIES})
 add_test(QuickStartTest test_main COMMAND test_main)
+
+set(TEST_SOURCES ${PROJECT_SOURCE_DIR}/test/test_quick_select.cpp)
+set(TEST_LIBS QuickStart)
+
+add_executable(test_quick_select ${TEST_SOURCES})
+target_link_libraries(test_quick_select ${TEST_LIBS} ${Boost_LIBRARIES})
+add_test(QuickSelectTest test_quick_select COMMAND test_quick_select)

@@ -1,9 +1,13 @@
 package com.brainyvoyage.alogs.search;
 
-import org.junit.Rule;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class SearchTest {
 
@@ -36,5 +40,23 @@ public class SearchTest {
             expected = e;
         }
         assertNotEquals("No Exception", expected);
+    }
+
+    @Test
+    public void genericBinarySearchTest() {
+        Search<Float> search = new Search<>();
+        Random rand = new Random();
+        ArrayList<Float> data = new ArrayList<>();
+        int length = 25;
+        for (int i = 0; i < length; i++) {
+            data.add(rand.nextFloat());
+        }
+        Collections.sort(data);
+
+        int expected = rand.nextInt(length);
+        Float searchFor = data.get(expected);
+
+        assertEquals(search.binarySearch(data, searchFor, 0, data.size() - 1), expected);
+
     }
 }
