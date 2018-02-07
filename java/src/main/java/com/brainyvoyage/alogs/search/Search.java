@@ -23,10 +23,14 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         else return Search.binarySearch(data, value, left, middle);
     }
 
-    public int binarySearch(List<T> data, T value, int left, int right) {
+    public int binarySearch(List<T> data, T value, int left, int right) throws IndexOutOfBoundsException {
         searchLogger.info(String.format("Left = %d, Right = %d", left, right));
 
-        if (right > data.size() || left < 0) throw new IndexOutOfBoundsException();
+        if (right > data.size() || left < 0) {
+            searchLogger.severe(String.format("Index Out of bound. Applicable range [0 - %d), got [%d, %d]",
+                    data.size(), left, right));
+            throw new IndexOutOfBoundsException();
+        }
         if (left > right) return -1;
 
         int middle = Math.floorDiv(left + right, 2);

@@ -59,4 +59,29 @@ public class SearchTest {
         assertEquals(search.binarySearch(data, searchFor, 0, data.size() - 1), expected);
 
     }
+
+    @Test
+    public void genericBinarySearchOutOfBoundTest() {
+        Search<Double> search = new Search<>();
+        Random rand = new Random();
+        ArrayList<Double> data = new ArrayList<>();
+        int length = 25;
+        for (int i = 0; i < length; i++) {
+            data.add(rand.nextDouble());
+        }
+        Collections.sort(data);
+
+        int index = rand.nextInt(length);
+        Double searchFor = data.get(index);
+        Exception expected = null;
+
+        try{
+            assertEquals(search.binarySearch(data, searchFor, 0, data.size()), index);
+        }catch (IndexOutOfBoundsException e){
+            expected = e;
+        }
+        assertNotEquals("No Exception", expected);
+
+
+    }
 }
