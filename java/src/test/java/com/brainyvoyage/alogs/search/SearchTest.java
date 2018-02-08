@@ -81,7 +81,25 @@ public class SearchTest {
             expected = e;
         }
         assertNotEquals("No Exception", expected);
+    }
 
+    @Test
+    public void partitionTest() {
+        int data[] = {10, 80, 30, 90, 40, 50, 70};
+        int expected = 4;
+        for (int item :
+                data) {
+            System.out.print(item + ", ");
+        }
+        int actual = Search.partition(data, 0, data.length - 1);
+        System.out.println();
+        for (int item :
+                data) {
+            System.out.print(item + ", ");
+        }
+        System.out.println();
+        assertEquals(expected, actual);
 
+        assertEquals(70, data[actual]);
     }
 }
