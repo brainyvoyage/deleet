@@ -23,7 +23,7 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         else return Search.binarySearch(data, value, left, middle);
     }
 
-    public static void swap(int element1, int element2){
+    public static void swap(int element1, int element2) {
         int tempDataHolder = element1;
         element1 = element2;
         element2 = tempDataHolder;
@@ -35,7 +35,7 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
      * The pivot element is the last element i.e. data[high]
      *
      * @param data: Array of int. Elements in array is expected to be distinct
-     * @param low: Positive int greater that 0
+     * @param low:  Positive int greater that 0
      * @param high: Positive int less that length of data
      * @return index of pivot element. It is the location where pivot would be if
      * data were sorted.
@@ -48,8 +48,8 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         int pivot = data[high];
         int currentElementIndex = low;
 
-        for(; currentElementIndex < high; currentElementIndex++){
-            if (data[currentElementIndex] <= pivot){
+        for (; currentElementIndex < high; currentElementIndex++) {
+            if (data[currentElementIndex] <= pivot) {
                 smallerValueIndex++;
                 int temp = data[smallerValueIndex];
                 data[smallerValueIndex] = data[currentElementIndex];
@@ -61,6 +61,24 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         data[smallerValueIndex] = pivot;
         data[currentElementIndex] = temp;
         return smallerValueIndex;
+    }
+
+    public static int kthLargestElement(int[] data, int k) {
+        if (k > data.length) throw new IllegalArgumentException();
+
+        int low = 0;
+        int high = data.length - 1;
+        int pivotIndex = -1;
+        while (high > low) {
+            pivotIndex = partition(data, low, high);
+            if (pivotIndex > k) {
+                high = pivotIndex - 1;
+            } else if (pivotIndex < k) {
+                low = pivotIndex + 1;
+            } else break;
+        }
+
+        return data[pivotIndex];
     }
 
     public int binarySearch(List<T> data, T value, int left, int right) throws IndexOutOfBoundsException {

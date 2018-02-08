@@ -75,9 +75,9 @@ public class SearchTest {
         Double searchFor = data.get(index);
         Exception expected = null;
 
-        try{
+        try {
             assertEquals(search.binarySearch(data, searchFor, 0, data.size()), index);
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             expected = e;
         }
         assertNotEquals("No Exception", expected);
@@ -101,5 +101,14 @@ public class SearchTest {
         assertEquals(expected, actual);
 
         assertEquals(70, data[actual]);
+    }
+
+    @Test
+    public void kthLargestElementTest() {
+        int data[] = {10, 80, 30, 90, 40, 50, 70};
+        int expected = 70;
+        int actual = Search.kthLargestElement(data, 4);
+
+        assertEquals(expected, actual);
     }
 }
