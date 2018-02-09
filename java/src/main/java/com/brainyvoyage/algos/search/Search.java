@@ -1,4 +1,4 @@
-package com.brainyvoyage.alogs.search;
+package com.brainyvoyage.algos.search;
 
 
 import java.util.Comparator;
