@@ -1,15 +1,43 @@
-plugins {
-    // Apply the java plugin to add support for Java
-    id 'java'
-    id 'idea'
-//    id 'application'
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'jacoco'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+
+        maven { url "http://repo1.maven.org/maven2/" }
+    }
 }
+
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    subprojects.each {
+        sourceSets = it.sourceSets.main
+    }
+
+    reports {
+        xml.enabled = false
+        //xml.destination = "${buildDir}/reports/jacoco/report.xml"
+        html.enabled = true
+        csv.enabled = true
+    }
+}
+
+
 
 // Define the main class for the application
 // mainClassName = 'App'
 
 group 'com.brainyvoyage'
 version '0.1.0'
+
 
 dependencies {
     testCompile 'junit:junit:4.12'

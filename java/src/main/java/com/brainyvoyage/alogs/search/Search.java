@@ -23,12 +23,6 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         else return Search.binarySearch(data, value, left, middle);
     }
 
-    public static void swap(int element1, int element2) {
-        int tempDataHolder = element1;
-        element1 = element2;
-        element2 = tempDataHolder;
-    }
-
     /**
      * Partition data in range [low - high] around the pivot such that all
      * element left of pivot is smaller that pivot and right of pivot is larger.
@@ -70,12 +64,15 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         int high = data.length - 1;
         int pivotIndex = -1;
         while (high > low) {
+            /* Find the rank of pivot element (data[pivot]) */
             pivotIndex = partition(data, low, high);
+
+            /* Look in left side or right side of pivot element depending on its rank */
             if (pivotIndex > k) {
-                high = pivotIndex - 1;
+                high = pivotIndex - 1;   // Look Left
             } else if (pivotIndex < k) {
-                low = pivotIndex + 1;
-            } else break;
+                low = pivotIndex + 1;    // Look Right
+            } else break;                // Found the k largest
         }
 
         return data[pivotIndex];
