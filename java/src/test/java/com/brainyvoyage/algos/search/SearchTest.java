@@ -15,19 +15,19 @@ public class SearchTest {
         int numOfTest = Math.abs(rand.nextInt(100000));
         HashSet<Integer> addedValue = new HashSet<>();
 
-        for(int test = 0; test < numOfTest; test++) {
+        for (int test = 0; test < numOfTest; test++) {
             int numElement = Math.abs(rand.nextInt(500));
-            while(numElement == 0)
+            while (numElement == 0)
                 numElement = Math.abs(rand.nextInt(500));
 
             addedValue.clear();
-            while(addedValue.size() != numElement){
+            while (addedValue.size() != numElement) {
                 addedValue.add(rand.nextInt(10000));
             }
 
             int[] data = new int[numElement];
             int index = 0;
-            for (int elem: addedValue){
+            for (int elem : addedValue) {
                 data[index] = elem;
                 index++;
             }
@@ -36,7 +36,7 @@ public class SearchTest {
             Arrays.sort(data);
             int searchFor = data[expected];
             int actual = Search.binarySearch(data, searchFor, 0, data.length - 1);
-            if(actual != expected){
+            if (actual != expected) {
                 for (int x :
                         data) {
                     System.err.print(x + ", ");
@@ -147,7 +147,7 @@ public class SearchTest {
         Exception expected = null;
         try {
             Search.partition(data, 0, data.length + 1);
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             expected = e;
         }
         assertNotEquals("No Exception", expected);
@@ -159,7 +159,7 @@ public class SearchTest {
         Exception expected = null;
         try {
             Search.partition(data, data.length + 1, data.length);
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             expected = e;
         }
         assertNotEquals("No Exception", expected);
