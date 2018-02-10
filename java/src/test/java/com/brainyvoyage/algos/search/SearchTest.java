@@ -68,12 +68,38 @@ public class SearchTest {
     }
 
     @Test
-    public void binarySearchOutofBound() {
+    public void binarySearchRightOutOfBound() {
         int[] data = {2, 8, 10, 15, 19, 32, 47};
         int searchFor = 15;
         Exception expected = null;
         try {
             Search.binarySearch(data, searchFor, 0, data.length);
+        } catch (IndexOutOfBoundsException e) {
+            expected = e;
+        }
+        assertNotEquals("No Exception", expected);
+    }
+
+    @Test
+    public void binarySearchLeftOutOfBound() {
+        int[] data = {2, 8, 10, 15, 19, 32, 47, 75};
+        int searchFor = 15;
+        Exception expected = null;
+        try {
+            Search.binarySearch(data, searchFor, -4, data.length - 1);
+        } catch (IndexOutOfBoundsException e) {
+            expected = e;
+        }
+        assertNotEquals("No Exception", expected);
+    }
+
+    @Test
+    public void binarySearchLeftRightOutOfBound() {
+        int[] data = {2, 8, 10, 15, 19, 37, 47, 94, 23};
+        int searchFor = 15;
+        Exception expected = null;
+        try {
+            Search.binarySearch(data, searchFor, -2, data.length + 8);
         } catch (IndexOutOfBoundsException e) {
             expected = e;
         }
@@ -99,6 +125,44 @@ public class SearchTest {
     }
 
     @Test
+    public void genericBSTRightBoundTest() {
+        Search<Float> search = new Search<>();
+        Random rand = new Random();
+        ArrayList<Float> data = new ArrayList<>();
+        int length = 25;
+        for (int i = 0; i < length; i++) {
+            data.add(rand.nextFloat());
+        }
+        Collections.sort(data);
+        Exception excepted = null;
+        try {
+            search.binarySearch(data, 0.0f, 0, data.size() + 3);
+        } catch (IndexOutOfBoundsException e) {
+            excepted = e;
+        }
+        assertNotEquals("No Exception", excepted);
+    }
+
+    @Test
+    public void genericBSTLeftBoundTest() {
+        Search<Float> search = new Search<>();
+        Random rand = new Random();
+        ArrayList<Float> data = new ArrayList<>();
+        int length = 55;
+        for (int i = 0; i < length; i++) {
+            data.add(rand.nextFloat());
+        }
+        Collections.sort(data);
+        Exception excepted = null;
+        try {
+            search.binarySearch(data, 0.0f, -3, data.size() - 1);
+        } catch (IndexOutOfBoundsException e) {
+            excepted = e;
+        }
+        assertNotEquals("No Exception", excepted);
+    }
+
+    @Test
     public void genericBinarySearchOutOfBoundTest() {
         Search<Double> search = new Search<>();
         Random rand = new Random();
@@ -115,6 +179,13 @@ public class SearchTest {
 
         try {
             assertEquals(search.binarySearch(data, searchFor, 0, data.size()), index);
+        } catch (IndexOutOfBoundsException e) {
+            expected = e;
+        }
+        assertNotEquals("No Exception", expected);
+
+        try {
+            assertEquals(search.binarySearch(data, searchFor, -5, data.size() - 1), index);
         } catch (IndexOutOfBoundsException e) {
             expected = e;
         }
@@ -142,7 +213,7 @@ public class SearchTest {
     }
 
     @Test
-    public void partitionOutofBoundRightTest() {
+    public void partitionOutOfBoundRightTest() {
         int data[] = {10, 80, 30, 90, 40, 50, 70};
         Exception expected = null;
         try {
@@ -151,10 +222,17 @@ public class SearchTest {
             expected = e;
         }
         assertNotEquals("No Exception", expected);
+
+        try {
+            Search.partition(data, -4, data.length - 1);
+        } catch (IndexOutOfBoundsException e) {
+            expected = e;
+        }
+        assertNotEquals("No Exception", expected);
     }
 
     @Test
-    public void partitionOutofBoundLeftTest() {
+    public void partitionOutOfBoundLeftTest() {
         int data[] = {10, 80, 30, 90, 40, 50, 70};
         Exception expected = null;
         try {
@@ -167,10 +245,83 @@ public class SearchTest {
 
     @Test
     public void kthLargestElementTest() {
-        int data[] = {10, 80, 30, 90, 40, 50, 70};
-        int expected = 70;
-        int actual = Search.kthLargestElement(data, 4);
+        int data[] = {-1286317408, -634513151, -61035229, 86835269, 581808165, 610291422, 1481170226, 1699760854};
+
+        int expected = -1286317408;
+        int actual = Search.kthLargestElement(data, 0);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void kthLargestBoundTest() {
+        int data[] = {10, 80, 30, 90, 40, 50, 70};
+        Exception expected = null;
+        try {
+            Search.kthLargestElement(data, data.length);
+        } catch (IllegalArgumentException e) {
+            expected = e;
+        }
+        assertNotEquals("No exception", expected);
+    }
+
+    @Test
+    public void randomKthLargestTest() {
+        HashSet<Integer> distinctValues = new HashSet<>();
+        Random rand = new Random();
+        int numOfTest = Math.abs(rand.nextInt(10000));
+
+        for (int test = 0; test < numOfTest; test++) {
+            distinctValues.clear();
+            int numElement = Math.abs(rand.nextInt(1000));
+            while (numElement == 0) {
+                numElement = Math.abs(rand.nextInt(1000));
+            }
+            while (distinctValues.size() != numElement) {
+                distinctValues.add(rand.nextInt());
+            }
+            int[] data = new int[numElement];
+            int index = 0;
+            for (int elem : distinctValues) {
+                data[index] = elem;
+                index++;
+            }
+
+            Arrays.sort(data);
+            int kLargestIndex = Math.abs(rand.nextInt(numElement));
+            int expected = data[kLargestIndex];
+
+            index = 0;
+            for (int elem : distinctValues) {
+                data[index] = elem;
+                index++;
+            }
+
+            int actual = Search.kthLargestElement(data, kLargestIndex);
+            if (actual != expected) {
+                Arrays.sort(data);
+                for (int elem : data) {
+                    System.out.print(elem + ", ");
+                }
+                System.out.println();
+                System.out.println(String.format("Index = %d, Expected = %d, found = %d", kLargestIndex, expected, actual));
+            }
+
+            assertEquals(expected, actual);
+        }
+    }
+
+    @Test
+    public void kLargestElementIllegalArg() {
+        int data[] = {-1286317408, -634513151, -61035229, 86835269, 581808165, 610291422, 1481170226, 1699760854};
+
+        Exception expected = null;
+        try {
+            int actual = Search.kthLargestElement(data, data.length + 2);
+        } catch (IllegalArgumentException e) {
+            expected = e;
+        }
+
+        assertNotEquals("No Exception", expected);
     }
 }

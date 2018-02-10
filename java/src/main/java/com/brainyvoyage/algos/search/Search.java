@@ -63,10 +63,10 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         int low = 0;
         int high = data.length - 1;
         int pivotIndex = -1;
-        while (high > low) {
+
+        while (high >= low) {
             /* Find the rank of pivot element (data[pivot]) */
             pivotIndex = partition(data, low, high);
-
             /* Look in left side or right side of pivot element depending on its rank */
             if (pivotIndex > k) {
                 high = pivotIndex - 1;   // Look Left
@@ -86,7 +86,7 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
                     data.size(), left, right));
             throw new IndexOutOfBoundsException();
         }
-        if (left > right) return -1;
+        if (left >= right) return -1;
 
         int middle = Math.floorDiv(left + right, 2);
 
