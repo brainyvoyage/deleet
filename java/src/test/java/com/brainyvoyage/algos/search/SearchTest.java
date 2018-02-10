@@ -2,14 +2,52 @@ package com.brainyvoyage.algos.search;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class SearchTest {
+
+    @Test
+    public void randomBinarySearch() {
+        Random rand = new Random();
+        int numOfTest = Math.abs(rand.nextInt(100000));
+        HashSet<Integer> addedValue = new HashSet<>();
+
+        for(int test = 0; test < numOfTest; test++) {
+            int numElement = Math.abs(rand.nextInt(500));
+            while(numElement == 0)
+                numElement = Math.abs(rand.nextInt(500));
+
+            addedValue.clear();
+            while(addedValue.size() != numElement){
+                addedValue.add(rand.nextInt(10000));
+            }
+
+            int[] data = new int[numElement];
+            int index = 0;
+            for (int elem: addedValue){
+                data[index] = elem;
+                index++;
+            }
+
+            int expected = Math.abs(rand.nextInt(numElement));
+            Arrays.sort(data);
+            int searchFor = data[expected];
+            int actual = Search.binarySearch(data, searchFor, 0, data.length - 1);
+            if(actual != expected){
+                for (int x :
+                        data) {
+                    System.err.print(x + ", ");
+                }
+                System.err.println();
+                System.err.println(String.format("Expectd = %d, Searched for = %d, Location Value = %d, Actual = %d",
+                        expected, searchFor, data[expected], actual));
+            }
+            assertEquals(expected, actual);
+        }
+    }
 
     @Test
     public void binarySearchTestFound() {
@@ -101,6 +139,30 @@ public class SearchTest {
         assertEquals(expected, actual);
 
         assertEquals(70, data[actual]);
+    }
+
+    @Test
+    public void partitionOutofBoundRightTest() {
+        int data[] = {10, 80, 30, 90, 40, 50, 70};
+        Exception expected = null;
+        try {
+            Search.partition(data, 0, data.length + 1);
+        }catch (IndexOutOfBoundsException e){
+            expected = e;
+        }
+        assertNotEquals("No Exception", expected);
+    }
+
+    @Test
+    public void partitionOutofBoundLeftTest() {
+        int data[] = {10, 80, 30, 90, 40, 50, 70};
+        Exception expected = null;
+        try {
+            Search.partition(data, data.length + 1, data.length);
+        }catch (IndexOutOfBoundsException e){
+            expected = e;
+        }
+        assertNotEquals("No Exception", expected);
     }
 
     @Test

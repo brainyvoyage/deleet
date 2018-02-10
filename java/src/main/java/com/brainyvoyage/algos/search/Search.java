@@ -19,8 +19,8 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         int middle = Math.floorDiv(left + right, 2);
 
         if (data[middle] == value) return middle;
-        else if (data[middle] > value) return Search.binarySearch(data, value, middle + 1, right);
-        else return Search.binarySearch(data, value, left, middle);
+        else if (data[middle] > value) return Search.binarySearch(data, value, left, middle-1);
+        else return Search.binarySearch(data, value, middle + 1, right);
     }
 
     /**
