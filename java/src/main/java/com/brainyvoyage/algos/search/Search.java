@@ -23,6 +23,23 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         else return Search.binarySearch(data, value, middle + 1, right);
     }
 
+    public static int interpolationSearch(int[] data, int key, int low, int high){
+        int middle;
+        while ((data[high] != data[low]) && (key >= data[low]) && (key <= data[high])) {
+            middle = low + ((key - data[low]) * (high - low) / (data[high] - data[low]));
+
+            if (data[middle] < key)
+                low = middle + 1;
+            else if (data[middle] > key)
+                high = middle -1;
+            else return middle;
+
+        }
+
+        if (key == data[low]) return low;
+        else return -1;
+    }
+
     /**
      * Partition data in range [low - high] around the pivot such that all
      * element left of pivot is smaller that pivot and right of pivot is larger.
@@ -94,6 +111,7 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         else if (this.compare(value, data.get(middle)) > 0) return binarySearch(data, value, middle + 1, right);
         else return binarySearch(data, value, left, middle);
     }
+
 }
 
 
