@@ -40,6 +40,13 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         else return -1;
     }
 
+    public static int exponentialSearch(int[] data, int key){
+        if (data[0] == key) return 0;
+        int i = 1;
+        while (i < data.length && data[i] <= key) i <<= 1;
+        return binarySearch(data, key, i >> 1, Math.min(i, data.length));
+    }
+
     /**
      * Partition data in range [low - high] around the pivot such that all
      * element left of pivot is smaller that pivot and right of pivot is larger.

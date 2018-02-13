@@ -50,6 +50,46 @@ public class SearchTest {
     }
 
     @Test
+    public void randomExponentialSearch() {
+        Random rand = new Random();
+        int numOfTest = Math.abs(rand.nextInt(100000));
+        HashSet<Integer> addedValue = new HashSet<>();
+
+        for (int test = 0; test < numOfTest; test++) {
+            int numElement = Math.abs(rand.nextInt(500));
+            while (numElement == 0)
+                numElement = Math.abs(rand.nextInt(500));
+
+            addedValue.clear();
+            while (addedValue.size() != numElement) {
+                addedValue.add(rand.nextInt(10000));
+            }
+
+            int[] data = new int[numElement];
+            int index = 0;
+            for (int elem : addedValue) {
+                data[index] = elem;
+                index++;
+            }
+
+            int expected = Math.abs(rand.nextInt(numElement));
+            Arrays.sort(data);
+            int searchFor = data[expected];
+            int actual = Search.exponentialSearch(data, searchFor);
+//            if (actual != expected) {
+//                for (int x :
+//                        data) {
+//                    System.err.print(x + ", ");
+//                }
+//                System.err.println();
+//                System.err.println(String.format("Expectd = %d, Searched for = %d, Location Value = %d, Actual = %d",
+//                        expected, searchFor, data[expected], actual));
+//            }
+            assertEquals(expected, actual);
+        }
+    }
+
+    @Test
     public void binarySearchTestFound() {
         int[] data = {2, 8, 10, 15, 19, 32, 47};
         int searchFor = 15;
