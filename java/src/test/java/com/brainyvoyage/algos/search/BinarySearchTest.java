@@ -71,6 +71,7 @@ public class BinarySearchTest {
         int[] data = {2, 8, 10, 15, 19, 32, 47};
         int searchFor = 15;
         int expected = 3;
+        assert(BinarySearch.isDistinct(data));
         assertEquals(BinarySearch.search(data, searchFor, 0, data.length - 1), expected);
     }
 
@@ -122,6 +123,21 @@ public class BinarySearchTest {
         assertNotEquals("No Exception", expected);
     }
 
+    @Test
+    public void nonDistinctTest() {
+        int[] data = {2, 8, 10, 15, 15, 15, 15, 32, 47};
+        int searchFor = 15;
+        int expected = -1;
+        assertEquals(false, BinarySearch.isDistinct(data));
+        assertEquals(expected, BinarySearch.search(data, searchFor, 0, data.length - 1));
+        int[] distinctData = {2, 8, 10, 15, 32, 47};
+        assertEquals(true, BinarySearch.isDistinct(distinctData));
+
+        ArrayList<Double> nonDistinctData = new ArrayList<>();
+        for (int elem: data) nonDistinctData.add(elem * 1.0);
+
+        assertEquals(-1, bstDouble.search(nonDistinctData, searchFor * 1.0, 0, nonDistinctData.size() - 1));
+    }
 
     @Test
     public void genericBinarySearchTest() {
