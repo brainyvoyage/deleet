@@ -72,7 +72,7 @@ public class BinarySearchTest {
         int searchFor = 15;
         int expected = 3;
         assert(BinarySearch.isDistinct(data));
-        assertEquals(BinarySearch.search(data, searchFor, 0, data.length - 1), expected);
+        assertEquals(expected, BinarySearch.search(data, searchFor, 0, data.length - 1));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class BinarySearchTest {
         int[] data = {2, 8, 10, 15, 19, 32, 47};
         int searchFor = 14;
         int expected = -1;
-        assertEquals(BinarySearch.search(data, searchFor, 0, data.length - 1), expected);
+        assertEquals(expected, BinarySearch.search(data, searchFor, 0, data.length - 1));
 
     }
 
