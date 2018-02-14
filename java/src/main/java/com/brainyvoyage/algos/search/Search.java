@@ -1,29 +1,7 @@
 package com.brainyvoyage.algos.search;
 
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.logging.Logger;
-
-public class Search<T extends Comparable<T>> implements Comparator<T> {
-    private Logger searchLogger = Logger.getGlobal();
-
-    public int compare(T el1, T el2) {
-        return el1.compareTo(el2);
-    }
-
-    public static int binarySearch(int[] data, int value, int left, int right) throws IndexOutOfBoundsException {
-        if (right > data.length || left < 0) throw new IndexOutOfBoundsException();
-        if (left > right) return -1;
-
-        int middle = Math.floorDiv(left + right, 2);
-
-        if (data[middle] == value) return middle;
-        else if (data[middle] > value) return Search.binarySearch(data, value, left, middle - 1);
-        else return Search.binarySearch(data, value, middle + 1, right);
-    }
-
-    public static int interpolationSearch(int[] data, int key, int low, int high){
+public class Search {
+    public static int interpolationSearch(int[] data, int key, int low, int high) {
         int middle;
         while ((data[high] != data[low]) && (key >= data[low]) && (key <= data[high])) {
             middle = low + ((key - data[low]) * (high - low) / (data[high] - data[low]));
@@ -31,7 +9,7 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
             if (data[middle] < key)
                 low = middle + 1;
             else if (data[middle] > key)
-                high = middle -1;
+                high = middle - 1;
             else return middle;
 
         }
@@ -40,11 +18,26 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         else return -1;
     }
 
-    public static int exponentialSearch(int[] data, int key){
+    public static int exponentialSearch(int[] data, int key) {
         if (data[0] == key) return 0;
         int i = 1;
         while (i < data.length && data[i] <= key) i <<= 1;
-        return binarySearch(data, key, i >> 1, Math.min(i, data.length));
+        return BinarySearch.search(data, key, i >> 1, Math.min(i, data.length));
+    }
+
+    public static int finbonacciSearch(int[] data, int key) {
+        int nMinus2FibNum = 0;
+        int nMinus1FibNum = 1;
+        int nthFibNum = nMinus1FibNum + nMinus2FibNum;
+
+        while (nthFibNum < data.length){
+            nMinus2FibNum = nMinus1FibNum;
+            nMinus1FibNum = nthFibNum;
+            nthFibNum = nMinus1FibNum + nMinus2FibNum;
+        }
+
+
+        return 0;
     }
 
     /**
@@ -100,23 +93,6 @@ public class Search<T extends Comparable<T>> implements Comparator<T> {
         }
 
         return data[pivotIndex];
-    }
-
-    public int binarySearch(List<T> data, T value, int left, int right) throws IndexOutOfBoundsException {
-        searchLogger.info(String.format("Left = %d, Right = %d", left, right));
-
-        if (right > data.size() || left < 0) {
-            searchLogger.severe(String.format("Index Out of bound. Applicable range [0 - %d), got [%d, %d]",
-                    data.size(), left, right));
-            throw new IndexOutOfBoundsException();
-        }
-        if (left >= right) return -1;
-
-        int middle = Math.floorDiv(left + right, 2);
-
-        if (this.compare(data.get(middle), value) == 0) return middle;
-        else if (this.compare(value, data.get(middle)) > 0) return binarySearch(data, value, middle + 1, right);
-        else return binarySearch(data, value, left, middle);
     }
 
 }
