@@ -38,7 +38,7 @@ public class BinarySearchTest {
     @Test
     public void randomBinarySearch() {
         Random rand = new Random();
-        int numOfTest = Math.abs(rand.nextInt(100000));
+        int numOfTest = Math.abs(rand.nextInt(100));
         HashSet<Integer> addedValue = new HashSet<>();
 
         for (int test = 0; test < numOfTest; test++) {

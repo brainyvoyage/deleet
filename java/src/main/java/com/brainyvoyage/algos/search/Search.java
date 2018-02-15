@@ -1,29 +1,6 @@
 package com.brainyvoyage.algos.search;
 
 public class Search {
-    public static int interpolationSearch(int[] data, int key, int low, int high) {
-        int middle;
-        while ((data[high] != data[low]) && (key >= data[low]) && (key <= data[high])) {
-            middle = low + ((key - data[low]) * (high - low) / (data[high] - data[low]));
-
-            if (data[middle] < key)
-                low = middle + 1;
-            else if (data[middle] > key)
-                high = middle - 1;
-            else return middle;
-
-        }
-
-        if (key == data[low]) return low;
-        else return -1;
-    }
-
-    public static int exponentialSearch(int[] data, int key) {
-        if (data[0] == key) return 0;
-        int i = 1;
-        while (i < data.length && data[i] <= key) i <<= 1;
-        return BinarySearch.search(data, key, i >> 1, Math.min(i, data.length));
-    }
 
     public static int finbonacciSearch(int[] data, int key) {
         int nMinus2FibNum = 0;

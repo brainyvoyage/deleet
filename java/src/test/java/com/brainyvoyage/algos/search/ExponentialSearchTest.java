@@ -36,37 +36,6 @@ public class ExponentialSearchTest {
     }
 
     @Test
-    public void randomBinarySearch() {
-        Random rand = new Random();
-        int numOfTest = Math.abs(rand.nextInt(100000));
-        HashSet<Integer> addedValue = new HashSet<>();
-
-        for (int test = 0; test < numOfTest; test++) {
-            int numElement = Math.abs(rand.nextInt(500));
-            while (numElement == 0)
-                numElement = Math.abs(rand.nextInt(500));
-
-            addedValue.clear();
-            while (addedValue.size() != numElement) {
-                addedValue.add(rand.nextInt(10000));
-            }
-
-            int[] data = new int[numElement];
-            int index = 0;
-            for (int elem : addedValue) {
-                data[index] = elem;
-                index++;
-            }
-
-            int expected = Math.abs(rand.nextInt(numElement));
-            Arrays.sort(data);
-            int searchFor = data[expected];
-            int actual = ExponentialSearch.search(data, searchFor);
-            assertEquals(expected, actual);
-        }
-    }
-
-    @Test
     public void expSearchTestFound() {
         int[] data = {2, 8, 10, 15, 19, 32, 47};
         int searchFor = 15;
@@ -100,5 +69,36 @@ public class ExponentialSearchTest {
         searchFor = data.get(0);
         assertEquals(0, expFloat.search(data, searchFor));
 
+    }
+
+    @Test
+    public void randomExponentialSearch() {
+        Random rand = new Random();
+        int numOfTest = Math.abs(rand.nextInt(100));
+        HashSet<Integer> addedValue = new HashSet<>();
+
+        for (int test = 0; test < numOfTest; test++) {
+            int numElement = Math.abs(rand.nextInt(500));
+            while (numElement == 0)
+                numElement = Math.abs(rand.nextInt(500));
+
+            addedValue.clear();
+            while (addedValue.size() != numElement) {
+                addedValue.add(rand.nextInt(10000));
+            }
+
+            int[] data = new int[numElement];
+            int index = 0;
+            for (int elem : addedValue) {
+                data[index] = elem;
+                index++;
+            }
+
+            int expected = Math.abs(rand.nextInt(numElement));
+            Arrays.sort(data);
+            int searchFor = data[expected];
+            int actual = ExponentialSearch.search(data, searchFor);
+            assertEquals(expected, actual);
+        }
     }
 }
