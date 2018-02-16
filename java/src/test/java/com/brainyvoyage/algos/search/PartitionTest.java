@@ -39,7 +39,7 @@ public class PartitionTest {
 
     @Test
     public void partitionOutOfBoundRightTest() {
-        int data[] = {10, 80, 30, 90, 40, 50, 70};
+        int data[] = {10, 80, 30,90, 40, 50, 70};
         Exception expected = null;
         try {
             Partition.partition(data, 0, data.length + 1);

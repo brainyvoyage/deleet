@@ -29,8 +29,9 @@ public class KthLargest<T extends Comparable<T>> implements Comparator<T> {
 
         return data[pivotIndex];
     }
-    public T find(final List<T> data, final int kth){
-        if(data.size() < kth) throw new IllegalArgumentException();
+
+    public T find(final List<T> data, final int kth) {
+        if (data.size() < kth) throw new IllegalArgumentException();
         Partition<T> partitioner = new Partition<>();
         int pivotIndex = -1;
         int low = 0;
@@ -38,8 +39,8 @@ public class KthLargest<T extends Comparable<T>> implements Comparator<T> {
 
         while (high >= low) {
             pivotIndex = partitioner.partition(data, low, high);
-            if(pivotIndex < kth) low = pivotIndex + 1;
-            else if(pivotIndex > kth) high = pivotIndex - 1;
+            if (pivotIndex < kth) low = pivotIndex + 1;
+            else if (pivotIndex > kth) high = pivotIndex - 1;
             else break;
         }
         return data.get(pivotIndex);
