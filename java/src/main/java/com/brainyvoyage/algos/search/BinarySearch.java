@@ -51,7 +51,7 @@ public class BinarySearch<T extends Comparable<T>> implements Comparator<T> {
             return -1;
         }
 
-        int middle = Math.floorDiv(left + right, 2);
+        int middle = (left + right) >> 1;
 
         if (data[middle] == value)
             return middle;
@@ -85,7 +85,7 @@ public class BinarySearch<T extends Comparable<T>> implements Comparator<T> {
         }
         if (left >= right) return -1;
 
-        int middle = Math.floorDiv(left + right, 2);
+        int middle = (left + right) >> 1;
 
         if (this.compare(data.get(middle), value) == 0) return middle;
         else if (this.compare(value, data.get(middle)) > 0) return searcher(data, value, middle + 1, right);
