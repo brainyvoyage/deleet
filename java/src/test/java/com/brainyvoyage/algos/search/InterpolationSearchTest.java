@@ -101,15 +101,5 @@ public class InterpolationSearchTest {
 
             assertEquals(expected, actual);
         }
-//        List<Integer> data = new ArrayList<>();
-//
-//        for(int i = 0; i < 10; i ++){
-//            data.add(i * 2);
-//        }
-//        Collections.sort(data);
-//        for (int i = 0; i < 10; i++){
-//            int actual = interpolation.search(data, data.get(i), 0, data.size() - 1, ops);
-//            assertEquals(i, actual);
-//        }
     }
 }
