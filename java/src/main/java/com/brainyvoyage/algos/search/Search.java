@@ -17,29 +17,6 @@ public class Search {
         return 0;
     }
 
-
-
-    public static int kthLargestElement(int[] data, int k) {
-        if (k > data.length) throw new IllegalArgumentException();
-
-        int low = 0;
-        int high = data.length - 1;
-        int pivotIndex = -1;
-
-        while (high >= low) {
-            /* Find the rank of pivot element (data[pivot]) */
-            pivotIndex = Partition.partition(data, low, high);
-            /* Look in left side or right side of pivot element depending on its rank */
-            if (pivotIndex > k) {
-                high = pivotIndex - 1;   // Look Left
-            } else if (pivotIndex < k) {
-                low = pivotIndex + 1;    // Look Right
-            } else break;                // Found the k largest
-        }
-
-        return data[pivotIndex];
-    }
-
 }
 
 
