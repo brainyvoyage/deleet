@@ -15,6 +15,12 @@ allprojects {
     }
 }
 
+tasks.withType(JavaCompile) {
+    configure(options) {
+        options.compilerArgs << '-Xlint:deprecation' << '-Xlint:unchecked'
+    }
+}
+
 task codeCoverageReport(type: JacocoReport) {
     executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
 
