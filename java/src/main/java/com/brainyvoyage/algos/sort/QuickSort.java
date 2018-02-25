@@ -7,8 +7,8 @@ public class QuickSort {
         int lowIndex = low;
         int currentElementIndex = low - 1;
 
-        for (; lowIndex < high; lowIndex++ ){
-            if (SortUtils.less(data[lowIndex], pivot) ) {
+        for (; lowIndex < high; lowIndex++) {
+            if (SortUtils.less(data[lowIndex], pivot)) {
                 SortUtils.swap(data, ++currentElementIndex, lowIndex);
             }
         }

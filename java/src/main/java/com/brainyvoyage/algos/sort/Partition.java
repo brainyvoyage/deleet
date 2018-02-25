@@ -6,7 +6,7 @@ public class Partition {
         int lowIndex = low;
         int currentElementIndex = low - 1;
 
-        for (; lowIndex < high; lowIndex++ ){
+        for (; lowIndex < high; lowIndex++) {
             if (less(data[lowIndex], pivot)) {
                 currentElementIndex++;
                 Comparable temp = data[currentElementIndex];
