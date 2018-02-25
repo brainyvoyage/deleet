@@ -45,9 +45,9 @@ public class QuickSortTest {
     @Test
     public void isSortedTest() {
         Integer[] unSorted = {10, 80, 30, 90, 40, 50, 70};
-        assert (!QuickSort.isSorted(unSorted));
+        assert (!SortUtils.isSorted(unSorted));
         QuickSort.sort(unSorted);
-        assert (QuickSort.isSorted(unSorted));
+        assert (SortUtils.isSorted(unSorted));
 
     }
 
