@@ -1,27 +1,55 @@
 package com.brainyvoyage.algos.sort;
 
-import com.brainyvoyage.algos.search.Partition;
+public class QuickSort {
 
-import java.util.List;
+    private static int partition(Comparable[] data, int low, int high) {
+        Comparable pivot = data[high];
+        int lowIndex = low;
+        int currentElementIndex = low - 1;
 
-public class QuickSort<T extends Comparable<T>> {
-    Partition<T> partitioner = new Partition<T>();
+        for (; lowIndex < high; lowIndex++ ){
+            if (less(data[lowIndex], pivot) ) {
+                swap(data, ++currentElementIndex, lowIndex);
+            }
+        }
+        swap(data, ++currentElementIndex, high);
 
-    public static void sort(int[] data, int left, int right) {
+        return currentElementIndex;
+    }
+
+    public static void sort(Comparable[] data) {
+        QuickSort.sort(data, 0, data.length - 1);
+    }
+
+    public static void sort(Comparable[] data, int left, int right) {
         if (right >= data.length || left < 0) throw new IndexOutOfBoundsException();
         if (left >= right) return;
 
-        int pivot = Partition.partition(data, left, right);
-        QuickSort.sort(data, left, pivot - 1);
-        QuickSort.sort(data, pivot + 1, right);
-    }
-
-    public void sort(List<T> data, int left, int right) {
-        if (right >= data.size() || left < 0) throw new IndexOutOfBoundsException();
-        if (left >= right) return;
-
-        int pivot = partitioner.partition(data, left, right);
+        int pivot = partition(data, left, right);
         sort(data, left, pivot - 1);
         sort(data, pivot + 1, right);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static boolean less(Comparable v, Comparable w) {
+        return v.compareTo(w) < 0;
+    }
+
+    private static void swap(Comparable[] a, int i, int j) {
+        Comparable t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    public static void show(Comparable[] a) {
+        for (int i = 0; i < a.length; i++)
+            System.out.print(a[i] + " ");
+        System.out.println();
+    }
+
+    public static boolean isSorted(Comparable[] a) {
+        for (int i = 1; i < a.length; i++)
+            if (less(a[i], a[i - 1])) return false;
+        return true;
     }
 }
