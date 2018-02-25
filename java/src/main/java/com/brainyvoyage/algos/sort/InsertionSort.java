@@ -29,6 +29,8 @@ public class InsertionSort {
                     int j = i; /* Start with the last seen element */
                     j > 0 && SortUtils.less(data[j], data[j - 1]); /* Compare */
                     j--) /* with all the elements seen so far*/
+
+                /* Swap current element with adjacent element on left */
                 SortUtils.swap(data, j, j - 1);
         }
     }
