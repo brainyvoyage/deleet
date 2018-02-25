@@ -1,5 +1,19 @@
 package com.brainyvoyage.algos.sort;
 
+/**
+ * Finds the first smallest element and replaces with first element
+ * and then finds second smallest element and replace with second element
+ * and so on...
+ *
+ * Selection sort uses ~N^2/2 compares and N exchanges to sort an
+ * array of length N.
+ *
+ * Pros: Data movement is minimal (Only N exchanges)
+ *
+ * Cons: Running time insensitive to input. Takes same amount of time
+ * for sorted or unsorted data
+ *
+ */
 public class SelectionSort {
     public static void sort(Comparable[] data) {
         if (data == null)
