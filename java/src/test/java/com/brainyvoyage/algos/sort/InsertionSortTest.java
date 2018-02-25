@@ -11,7 +11,7 @@ public class InsertionSortTest {
 
     @Test
     public void sortTest() {
-        SelectionSort.sort(data);
+        InsertionSort.sort(data);
         SortUtils.show(data);
         assertArrayEquals(expected, data);
     }

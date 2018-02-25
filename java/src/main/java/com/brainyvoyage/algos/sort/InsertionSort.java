@@ -18,12 +18,17 @@ package com.brainyvoyage.algos.sort;
  * </li>
  * </ol>
  * <p>
- * Cons: Quadratic runtime for unordered data
+ * Cons: It is slow (Quadratic runtime for unordered data) because the only
+ * exchanges it does involve adjacent entries so item can move through array
+ * only one place at a time
  */
 public class InsertionSort {
     public static void sort(Comparable[] data) {
         for (int i = 0; i < data.length; i++) {
-            for (int j = i; j > 0 && SortUtils.less(data[j], data[j - 1]); j++)
+            for (
+                    int j = i; /* Start with the last seen element */
+                    j > 0 && SortUtils.less(data[j], data[j - 1]); /* Compare */
+                    j--) /* with all the elements seen so far*/
                 SortUtils.swap(data, j, j - 1);
         }
     }
