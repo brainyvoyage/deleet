@@ -19,8 +19,16 @@ public class ArrayedMaxPriorityQueue<Key extends Comparable<Key>> {
     }
 
     public void insert(Key key) {
-        priorityQueue[++size] = key;
-        bottomUpReHeapify(size);
+        if (size < priorityQueue.length - 1) {
+            priorityQueue[++size] = key;
+            bottomUpReHeapify(size);
+        }else{
+            System.out.println(String.format
+                    ("Queue at full capacity. Deleting max key = %s", deleteMax().toString())
+            );
+            priorityQueue[++size] = key;
+            bottomUpReHeapify(size);
+        }
     }
 
     public Key deleteMax() {
@@ -82,5 +90,12 @@ public class ArrayedMaxPriorityQueue<Key extends Comparable<Key>> {
 
     private int parent(int index) {
         return index/2;
+    }
+
+    public void show(){
+        for(int i = 1; i <= size; i++){
+            System.out.print(priorityQueue[i] + " ");
+        }
+        System.out.println();
     }
 }

@@ -5,7 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ArrayedMaxPriorityQueueTest {
-    private ArrayedMaxPriorityQueue priorityQueue = new ArrayedMaxPriorityQueue(10);
+    private int capacity = 10;
+    private ArrayedMaxPriorityQueue priorityQueue = new ArrayedMaxPriorityQueue(capacity);
 
     @Test
     public void isEmpty() {
@@ -20,15 +21,16 @@ public class ArrayedMaxPriorityQueueTest {
     @Test
     @SuppressWarnings("unchecked")
     public void insertDelete() {
-        Integer[] data = {54, 12, 51, 14, 45, 95, 28, 22};
+        Integer[] data = {-3, 54, 12, 51, 14, 45, 95, 28, 22, 11, 9, 7, 3};
         for (Integer elem: data)
             priorityQueue.insert(elem);
-        assertEquals(95, priorityQueue.deleteMax());
-        assertEquals(54, priorityQueue.deleteMax());
-        assertEquals(51, priorityQueue.deleteMax());
+        priorityQueue.show();
         assertEquals(45, priorityQueue.deleteMax());
+        assertEquals(28, priorityQueue.deleteMax());
+        assertEquals(22, priorityQueue.deleteMax());
+        assertEquals(14, priorityQueue.deleteMax());
 
-        assertEquals(data.length - 4, priorityQueue.size());
+        assertEquals(capacity - 4, priorityQueue.size());
         assert(!priorityQueue.isEmpty());
     }
 }
