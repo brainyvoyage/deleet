@@ -41,17 +41,26 @@ public class ArrayedMaxPriorityQueue<Key extends Comparable<Key>> {
     }
 
     private void topBottomHeapify(int index) {
-        int leftChild = leftChild(index);
-        while(leftChild <= size) {
-            int swapIndex = leftChild;
+        while(leftChild(index) <= size) {
+            // Initially choose left child as to check if
+            // it violates the heap property
+            int swapIndex = leftChild(index);
+
+            // Figure out if to swap with left or right child
             int rightChild = rightChild(index);
-            if (leftChild < size && lessThan(leftChild, rightChild))
+            if (swapIndex < size && lessThan(swapIndex, rightChild))
                 swapIndex = rightChild;
+
+            // Compare with the parent to see if larger child is
+            // violating the heap property, break if it doesn't
             if (!lessThan(index, swapIndex)) break;
+
+            // Swap child and parent
             swap(index, swapIndex);
             index = swapIndex;
         }
     }
+
 
     private void swap(int from, int to) {
         Key temp = priorityQueue[to];
