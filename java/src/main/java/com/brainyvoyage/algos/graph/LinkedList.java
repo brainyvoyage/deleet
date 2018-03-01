@@ -38,9 +38,10 @@ public class LinkedList<Item> implements Iterable<Item> {
 
     /**
      * Adds item at the beginning of the list
+     *
      * @param item
      */
-    public void add(Item item){
+    public void add(Item item) {
         Node currentHead = this.head;
         head = new Node();
         head.item = item;
@@ -48,6 +49,11 @@ public class LinkedList<Item> implements Iterable<Item> {
         size++;
     }
 
-    public boolean isEmpty(){return head == null;}
-    public int size(){return size;}
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public int size() {
+        return size;
+    }
 }
