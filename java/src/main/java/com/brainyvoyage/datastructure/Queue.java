@@ -15,7 +15,7 @@ public class Queue<Item> implements Iterable<Item> {
     private int size = 0;
 
     private Node<Item> createNode(Item item) {
-        Node node = new Node();
+        Node<Item> node = new Node<>();
         node.item = item;
         node.next = null;
         return node;
