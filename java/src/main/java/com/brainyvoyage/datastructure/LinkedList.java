@@ -4,15 +4,15 @@ import java.util.Iterator;
 
 public class LinkedList<Item> implements Iterable<Item> {
 
-    private class Node {
+    private class Node<Item> {
         Item item;
-        Node next;
+        Node<Item> next;
     }
 
     private int size;
 
     private class ListIterator implements Iterator<Item> {
-        private Node current = head;
+        private Node<Item> current = head;
 
         public boolean hasNext() {
             return current != null;
@@ -29,7 +29,7 @@ public class LinkedList<Item> implements Iterable<Item> {
         }
     }
 
-    private Node head;
+    private Node<Item> head;
 
     @Override
     public Iterator<Item> iterator() {
@@ -42,8 +42,8 @@ public class LinkedList<Item> implements Iterable<Item> {
      * @param item
      */
     public void add(Item item) {
-        Node currentHead = this.head;
-        head = new Node();
+        Node<Item> currentHead = this.head;
+        head = new Node<>();
         head.item = item;
         head.next = currentHead;
         size++;
