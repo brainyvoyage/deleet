@@ -1,4 +1,4 @@
-package com.brainyvoyage.algos.graph;
+package com.brainyvoyage.datastructure;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

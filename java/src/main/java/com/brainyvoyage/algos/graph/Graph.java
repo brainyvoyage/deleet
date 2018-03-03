@@ -1,8 +1,7 @@
 package com.brainyvoyage.algos.graph;
 
 import com.brainyvoyage.algos.utils.io.Input;
-
-import java.io.InputStream;
+import com.brainyvoyage.datastructure.LinkedList;
 
 public class Graph {
     private final int numVertices;
@@ -15,18 +14,18 @@ public class Graph {
         this.numVertices = vertexCapacity;
         this.numEdges = 0;
         adjacencyList = (LinkedList<Integer>[]) new LinkedList[vertexCapacity];
-        for (int i = 0; i < numVertices; i++){
+        for (int i = 0; i < numVertices; i++) {
             adjacencyList[i] = new LinkedList<>();
         }
     }
 
-    public Graph(Input in){
+    public Graph(Input in) {
         this(in.readInt());
         this.numEdges = in.readInt();
         for (int i = 0; i < numEdges; i++) {
             int vertex1 = in.readInt();
             int vertex2 = in.readInt();
-            System.out.print(vertex1 + " - " + vertex2 +"\n");
+            System.out.print(vertex1 + " - " + vertex2 + "\n");
             addEdge(vertex1, vertex2);
         }
     }
@@ -44,7 +43,7 @@ public class Graph {
             adjacencyList[vertex1].add(vertex2);
             adjacencyList[vertex2].add(vertex1);
             numEdges++;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -56,13 +55,13 @@ public class Graph {
 
     public static int degree(Graph graph, int vertex) {
         int degree = 0;
-        for(int vert: graph.adj(vertex)) degree++;
+        for (int vert : graph.adj(vertex)) degree++;
         return degree;
     }
 
     public static int maxDegree(Graph graph) {
         int max = 0;
-        for (int vertex = 0; vertex < graph.getNumVertices(); vertex++){
+        for (int vertex = 0; vertex < graph.getNumVertices(); vertex++) {
             int degree = degree(graph, vertex);
             if (degree > max) max = degree;
         }
@@ -70,15 +69,15 @@ public class Graph {
     }
 
     public static int avgDegree(Graph graph) {
-        return 2 * graph.getNumEdges()/graph.getNumVertices();
+        return 2 * graph.getNumEdges() / graph.getNumVertices();
     }
 
     public static int numberOfSelfLoops(Graph graph) {
         int count = 0;
         for (int vertex = 0; vertex < graph.getNumVertices(); vertex++) {
-            for(int connectedVertex: graph.adj(vertex))
-                if(vertex == connectedVertex) count++;
-            return count/2;
+            for (int connectedVertex : graph.adj(vertex))
+                if (vertex == connectedVertex) count++;
+            return count / 2;
         }
         return count;
     }
@@ -88,7 +87,7 @@ public class Graph {
         StringBuilder repr = new StringBuilder();
         repr.append(numVertices + " vertices, " + numEdges + " edges");
         repr.append(System.lineSeparator());
-        for (int vertex = 0; vertex < numVertices; vertex++){
+        for (int vertex = 0; vertex < numVertices; vertex++) {
             repr.append(vertex + ": ");
             for (int connectedVertex : adj(vertex)) repr.append(connectedVertex + " ");
             repr.append(System.lineSeparator());

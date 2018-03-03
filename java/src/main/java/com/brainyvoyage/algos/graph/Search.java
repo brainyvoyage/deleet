@@ -11,18 +11,18 @@ public class Search {
 
     public boolean marked(int vertex) {
         Iterable<Integer> connectedVertex = graph.adj(source);
-        for (Integer connected: connectedVertex )
+        for (Integer connected : connectedVertex)
             if (connected == vertex) return true;
         return false;
     }
 
-    public int count(){
+    public int count() {
         int count = 0;
         try {
             Iterable<Integer> connectedVertex = graph.adj(source);
             for (Integer ignored : connectedVertex)
                 count++;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return count;
