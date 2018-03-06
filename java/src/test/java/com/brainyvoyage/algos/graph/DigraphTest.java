@@ -34,6 +34,11 @@ public class DigraphTest {
 
     @Test
     public void testDigraph() {
-        System.out.print(digraph);
+        System.out.println(digraph);
+        System.out.println(digraph.reverse());
+    }
+
+    public Digraph getDigraph() {
+        return digraph;
     }
 }
