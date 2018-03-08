@@ -1,5 +1,7 @@
 package com.brainyvoyage.algos.graph;
 
+import com.brainyvoyage.datastructure.Graph;
+
 public class Bipartite {
     private boolean[] marked;
     private boolean[] color;

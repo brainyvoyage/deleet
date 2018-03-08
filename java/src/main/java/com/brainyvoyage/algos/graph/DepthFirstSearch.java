@@ -1,5 +1,7 @@
 package com.brainyvoyage.algos.graph;
 
+import com.brainyvoyage.datastructure.Graph;
+
 public class DepthFirstSearch {
     private boolean[] marked;
     private int count;

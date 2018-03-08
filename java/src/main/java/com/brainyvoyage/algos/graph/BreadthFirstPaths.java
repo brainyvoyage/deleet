@@ -1,5 +1,6 @@
 package com.brainyvoyage.algos.graph;
 
+import com.brainyvoyage.datastructure.Graph;
 import com.brainyvoyage.datastructure.Queue;
 
 import java.util.Stack;

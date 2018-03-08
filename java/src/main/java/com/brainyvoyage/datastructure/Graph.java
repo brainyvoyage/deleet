@@ -1,7 +1,6 @@
-package com.brainyvoyage.algos.graph;
+package com.brainyvoyage.datastructure;
 
 import com.brainyvoyage.algos.utils.io.Input;
-import com.brainyvoyage.datastructure.LinkedList;
 
 public class Graph {
     private final int numVertices;

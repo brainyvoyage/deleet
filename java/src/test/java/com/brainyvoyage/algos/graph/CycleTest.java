@@ -1,8 +1,7 @@
 package com.brainyvoyage.algos.graph;
 
+import com.brainyvoyage.datastructure.Graph;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class CycleTest {
     private Graph graph;
