@@ -1,14 +1,22 @@
 package com.brainyvoyage.algos.heap;
 
-public class ArrayedMaxPriorityQueue<Key extends Comparable<Key>> {
-    private Key[] priorityQueue;
-    private int size = 0;
-
+public class ArrayedPriorityQueue<Key extends Comparable<Key>> {
+    Key[] priorityQueue;
+    protected int size = 0;
+    private boolean maxPq;
     @SuppressWarnings("unchecked")
-    public ArrayedMaxPriorityQueue(int capacity) {
+    ArrayedPriorityQueue(int capacity) {
         // index 0 is unused and heap located between 1 - N
         this.priorityQueue = (Key[]) new Comparable[capacity + 1];
+        this.maxPq = true;
     }
+
+    @SuppressWarnings("unchecked")
+    ArrayedPriorityQueue(int capacity, boolean maxPq) {
+        this(capacity);
+        this.maxPq = maxPq;
+    }
+
 
     public boolean isEmpty() {
         return size == 0;
@@ -22,16 +30,25 @@ public class ArrayedMaxPriorityQueue<Key extends Comparable<Key>> {
         if (size < priorityQueue.length - 1) {
             priorityQueue[++size] = key;
             bottomUpReHeapify(size);
-        }else{
+        } else if(compare(key, priorityQueue[1])) {
+
             System.out.println(String.format
-                    ("Queue at full capacity. Deleting max key = %s", deleteMax().toString())
+                    ("Queue at full capacity. Deleting %s key = %s",
+                            maxPq ? "max" : "min",
+                            delete().toString())
             );
             priorityQueue[++size] = key;
             bottomUpReHeapify(size);
+        } else {
+            System.out.println(String.format
+                    ("The input %s is %s than %s. Ignoring the input",
+                            key, maxPq ? "larger" : "smaller",
+                            priorityQueue[1])
+            );
         }
     }
 
-    public Key deleteMax() {
+    public Key delete() {
         Key max = priorityQueue[1];
         swap(1, size--);
         priorityQueue[size + 1] = null;
@@ -39,16 +56,16 @@ public class ArrayedMaxPriorityQueue<Key extends Comparable<Key>> {
         return max;
     }
 
-    private void bottomUpReHeapify(int index) {
+    void bottomUpReHeapify(int index) {
         int parentIndex = parent(index);
-        while (index > 1 && lessThan(parentIndex, index)) {
+        while (index > 1 && compare(parentIndex, index)) {
             swap(parentIndex, index);
             index = parentIndex;
             parentIndex = parent(index);
         }
     }
 
-    private void topBottomHeapify(int index) {
+    void topBottomHeapify(int index) {
         while(leftChild(index) <= size) {
             // Initially choose left child as to check if
             // it violates the heap property
@@ -56,12 +73,12 @@ public class ArrayedMaxPriorityQueue<Key extends Comparable<Key>> {
 
             // Figure out if to swap with left or right child
             int rightChild = rightChild(index);
-            if (swapIndex < size && lessThan(swapIndex, rightChild))
+            if (swapIndex < size && compare(swapIndex, rightChild))
                 swapIndex = rightChild;
 
             // Compare with the parent to see if larger child is
             // violating the heap property, break if it doesn't
-            if (!lessThan(index, swapIndex)) break;
+            if (!compare(index, swapIndex)) break;
 
             // Swap child and parent
             swap(index, swapIndex);
@@ -70,14 +87,22 @@ public class ArrayedMaxPriorityQueue<Key extends Comparable<Key>> {
     }
 
 
-    private void swap(int from, int to) {
+    void swap(int from, int to) {
         Key temp = priorityQueue[to];
         priorityQueue[to] = priorityQueue[from];
         priorityQueue[from] = temp;
     }
 
-    private boolean lessThan(int lhs, int rhs) {
-        return priorityQueue[lhs].compareTo(priorityQueue[rhs]) < 0;
+    protected boolean compare(int lhs, int rhs) {
+        return this.maxPq ?
+                priorityQueue[lhs].compareTo(priorityQueue[rhs]) < 0 :
+                priorityQueue[lhs].compareTo(priorityQueue[rhs]) > 0;
+    }
+
+    protected boolean compare(Key lhs, Key rhs) {
+        return this.maxPq ?
+                lhs.compareTo(rhs) < 0 :
+                lhs.compareTo(rhs) > 0;
     }
 
     private int leftChild(int index) {
