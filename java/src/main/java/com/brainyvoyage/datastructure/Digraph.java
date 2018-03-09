@@ -1,6 +1,4 @@
-package com.brainyvoyage.algos.graph;
-
-import com.brainyvoyage.datastructure.LinkedList;
+package com.brainyvoyage.datastructure;
 
 public class Digraph {
     private int vertices;

@@ -11,6 +11,8 @@ public class Edge implements Comparable<Edge> {
         this.vertex2 = vertex2;
     }
 
+    public double weight() { return this.weight; }
+
     public int either() {
         return vertex1;
     }

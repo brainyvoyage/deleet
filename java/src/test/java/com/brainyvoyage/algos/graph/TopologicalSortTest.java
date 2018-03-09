@@ -1,5 +1,6 @@
 package com.brainyvoyage.algos.graph;
 
+import com.brainyvoyage.datastructure.Digraph;
 import org.junit.Test;
 
 

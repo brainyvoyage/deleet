@@ -1,5 +1,7 @@
 package com.brainyvoyage.algos.graph;
 
+import com.brainyvoyage.datastructure.Digraph;
+
 public class DirectedDfs {
     private boolean[] marked;
 

@@ -5,6 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class EdgeWeightedGraphTest {
+    private double totalWeight = 0.0;
     private String data = "4 5 0.35\n" +
             "4 7 0.37\n" +
             "5 7 0.28\n" +
@@ -26,9 +27,10 @@ public class EdgeWeightedGraphTest {
     public EdgeWeightedGraphTest() {
         ewg = new EdgeWeightedGraph(8);
         String[] edgeData = data.split("\n");
-        for(String ed: edgeData) {
+        for (String ed : edgeData) {
             String[] edComponent = ed.split(" ");
             Edge e = new Edge(Integer.parseInt(edComponent[0]), Integer.parseInt(edComponent[1]), Double.parseDouble(edComponent[2]));
+            this.totalWeight += Double.parseDouble(edComponent[2]);
             ewg.addEdge(e);
         }
     }
@@ -38,6 +40,13 @@ public class EdgeWeightedGraphTest {
         System.out.println(ewg);
         assertEquals(8, ewg.getNumVertices());
         assertEquals(16, ewg.getNumEdges());
+        double weight = 0.0;
+        for(int vertex = 0; vertex < ewg.getNumVertices(); vertex++) {
+            for (Edge connectedVertices : ewg.adj(vertex)) {
+                weight += connectedVertices.weight();
+            }
+        }
+        assertEquals(totalWeight, weight/ 2.0, 0.00000001);
     }
 
 }
