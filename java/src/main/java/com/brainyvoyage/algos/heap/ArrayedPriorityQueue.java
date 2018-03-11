@@ -5,14 +5,14 @@ public class ArrayedPriorityQueue<Key extends Comparable<Key>> {
     protected int size = 0;
     private boolean maxPq;
     @SuppressWarnings("unchecked")
-    ArrayedPriorityQueue(int capacity) {
+    public ArrayedPriorityQueue(int capacity) {
         // index 0 is unused and heap located between 1 - N
         this.priorityQueue = (Key[]) new Comparable[capacity + 1];
         this.maxPq = true;
     }
 
     @SuppressWarnings("unchecked")
-    ArrayedPriorityQueue(int capacity, boolean maxPq) {
+    public ArrayedPriorityQueue(int capacity, boolean maxPq) {
         this(capacity);
         this.maxPq = maxPq;
     }
