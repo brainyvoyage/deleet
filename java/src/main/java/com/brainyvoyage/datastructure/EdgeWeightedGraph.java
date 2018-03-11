@@ -38,6 +38,14 @@ public class EdgeWeightedGraph {
         return adjacencyList[vertex];
     }
 
+    public Iterable<Edge> edges() {
+        LinkedList<Edge> allEdges = new LinkedList<>();
+        for (int v = 0; v < numVertices; v++)
+            for (Edge e : adjacencyList[v])
+                if (e.other(v) > v) allEdges.add(e);
+        return allEdges;
+    }
+
     public static int degree(Graph graph, int vertex) {
         int degree = 0;
         for (int vert : graph.adj(vertex)) degree++;
