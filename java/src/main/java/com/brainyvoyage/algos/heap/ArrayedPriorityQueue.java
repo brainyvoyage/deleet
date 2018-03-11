@@ -4,6 +4,7 @@ public class ArrayedPriorityQueue<Key extends Comparable<Key>> {
     Key[] priorityQueue;
     protected int size = 0;
     private boolean maxPq;
+
     @SuppressWarnings("unchecked")
     public ArrayedPriorityQueue(int capacity) {
         // index 0 is unused and heap located between 1 - N
@@ -20,7 +21,7 @@ public class ArrayedPriorityQueue<Key extends Comparable<Key>> {
     public ArrayedPriorityQueue(int capacity, Iterable<Key> items, boolean maxPq) {
         this(capacity);
         this.maxPq = maxPq;
-        for(Key key: items) {
+        for (Key key : items) {
             insert(key);
         }
     }
@@ -37,7 +38,7 @@ public class ArrayedPriorityQueue<Key extends Comparable<Key>> {
         if (size < priorityQueue.length - 1) {
             priorityQueue[++size] = key;
             bottomUpReHeapify(size);
-        } else if(compare(key, priorityQueue[1])) {
+        } else if (compare(key, priorityQueue[1])) {
 
             System.out.println(String.format
                     ("Queue at full capacity. Deleting %s key = %s",
@@ -73,7 +74,7 @@ public class ArrayedPriorityQueue<Key extends Comparable<Key>> {
     }
 
     void topBottomHeapify(int index) {
-        while(leftChild(index) <= size) {
+        while (leftChild(index) <= size) {
             // Initially choose left child as to check if
             // it violates the heap property
             int swapIndex = leftChild(index);
@@ -121,11 +122,11 @@ public class ArrayedPriorityQueue<Key extends Comparable<Key>> {
     }
 
     private int parent(int index) {
-        return index/2;
+        return index / 2;
     }
 
-    public void show(){
-        for(int i = 1; i <= size; i++){
+    public void show() {
+        for (int i = 1; i <= size; i++) {
             System.out.print(priorityQueue[i] + " ");
         }
         System.out.println();

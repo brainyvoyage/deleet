@@ -15,7 +15,7 @@ public class LazyPrimMst {
         marked = new boolean[edgeWeightedGraph.getNumVertices()];
         mst = new Queue<>();
         int numOfVertices = edgeWeightedGraph.getNumVertices();
-        int maxNumberOfEdges = numOfVertices * (numOfVertices - 1) /2;
+        int maxNumberOfEdges = numOfVertices * (numOfVertices - 1) / 2;
         minPq = new ArrayedPriorityQueue<>(maxNumberOfEdges, false);
         visit(edgeWeightedGraph, 0);
         while (!minPq.isEmpty()) {

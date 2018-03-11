@@ -14,7 +14,7 @@ public class KruskalMstTest {
 
     @Test
     public void testMst() {
-        for(Edge e : mst.edges()) {
+        for (Edge e : mst.edges()) {
             System.out.print(String.format("<%s> ", e));
         }
         System.out.println();

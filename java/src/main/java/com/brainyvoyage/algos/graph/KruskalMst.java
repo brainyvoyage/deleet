@@ -13,11 +13,11 @@ public class KruskalMst {
                 edgeWeightedGraph.edges(),
                 false);
 
-        while(!minPq.isEmpty() && mst.size() < edgeWeightedGraph.getNumVertices() - 1) {
+        while (!minPq.isEmpty() && mst.size() < edgeWeightedGraph.getNumVertices() - 1) {
             Edge edge = minPq.delete();
             int vertex = edge.either();
             int otherVertex = edge.other(vertex);
-            if(uf.connected(vertex, otherVertex)) continue;
+            if (uf.connected(vertex, otherVertex)) continue;
             uf.union(vertex, otherVertex);
             mst.enqueue(edge);
         }
@@ -29,7 +29,7 @@ public class KruskalMst {
 
     public double weight() {
         double totalWeight = 0.0;
-        for(Edge edge: mst) {
+        for (Edge edge : mst) {
             totalWeight += edge.weight();
         }
         return totalWeight;

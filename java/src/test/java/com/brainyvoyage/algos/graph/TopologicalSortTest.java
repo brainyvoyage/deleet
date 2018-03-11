@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class TopologicalSortTest {
     private Digraph digraph;
+
     public TopologicalSortTest() {
         digraph = new Digraph(13);
         digraph.addEdge(2, 3);
@@ -26,13 +27,13 @@ public class TopologicalSortTest {
     }
 
     @Test
-    public void testTopologicalSort(){
+    public void testTopologicalSort() {
         System.out.println(digraph);
         DirectedCycle cycleFinder = new DirectedCycle(digraph);
         assert (!cycleFinder.hasCycle());
         TopologicalSort ts = new TopologicalSort(digraph);
         Iterable<Integer> order = ts.order();
-        for(int x: order) {
+        for (int x : order) {
             System.out.print(x + " ");
         }
         System.out.println();
