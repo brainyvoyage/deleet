@@ -1,6 +1,5 @@
 package com.brainyvoyage.datastructure;
 
-import com.brainyvoyage.algos.utils.io.Input;
 
 public class Graph {
     private final int numVertices;
@@ -18,16 +17,6 @@ public class Graph {
         }
     }
 
-    public Graph(Input in) {
-        this(in.readInt());
-        this.numEdges = in.readInt();
-        for (int i = 0; i < numEdges; i++) {
-            int vertex1 = in.readInt();
-            int vertex2 = in.readInt();
-            System.out.print(vertex1 + " - " + vertex2 + "\n");
-            addEdge(vertex1, vertex2);
-        }
-    }
 
     public int getNumVertices() {
         return numVertices;

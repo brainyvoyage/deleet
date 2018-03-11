@@ -24,6 +24,10 @@ public class EdgeWeightedGraphTest {
             "6 4 0.93";
     private EdgeWeightedGraph ewg;
 
+    public EdgeWeightedGraph getEwg() {
+        return ewg;
+    }
+
     public EdgeWeightedGraphTest() {
         ewg = new EdgeWeightedGraph(8);
         String[] edgeData = data.split("\n");
