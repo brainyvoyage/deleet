@@ -17,6 +17,13 @@ public class ArrayedPriorityQueue<Key extends Comparable<Key>> {
         this.maxPq = maxPq;
     }
 
+    public ArrayedPriorityQueue(int capacity, Iterable<Key> items, boolean maxPq) {
+        this(capacity);
+        this.maxPq = maxPq;
+        for(Key key: items) {
+            insert(key);
+        }
+    }
 
     public boolean isEmpty() {
         return size == 0;
