@@ -3,6 +3,7 @@ package com.brainyvoyage.algos.graph;
 import com.brainyvoyage.algos.heap.IndexPriorityQueue;
 import com.brainyvoyage.datastructure.DirectedEdge;
 import com.brainyvoyage.datastructure.EdgeWeightedDigraph;
+import com.brainyvoyage.datastructure.Queue;
 
 import java.util.Stack;
 
@@ -45,12 +46,13 @@ public class ShortestPath {
         return distanceTo[vertex] < Double.POSITIVE_INFINITY;
     }
 
-    public Iterable<DirectedEdge> pathTo(int vertex) {
+    public Stack<DirectedEdge> pathTo(int vertex) {
         if(!hasPathTo(vertex)) return null;
         Stack<DirectedEdge> path = new Stack<>();
         for(DirectedEdge edge = edgeTo[vertex]; edge != null; edge = edgeTo[edge.from()]){
-            path.add(edge);
+            path.push(edge);
         }
+
         return path;
     }
 

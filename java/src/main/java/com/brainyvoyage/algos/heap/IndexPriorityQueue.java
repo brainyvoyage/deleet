@@ -4,30 +4,31 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable<Integer> {
-    private int maxN;        // maximum number of elements on PQ
-    private int size;        // number of elements on PQ
-    private int[] pq;        // binary heap using 1-based indexing
-    private int[] qp;        // inverse of pq - qp[pq[i]] = pq[qp[i]] = i
-    private Key[] keys;      // keys[i] = priority of i
+    private int capacity;       // maximum number of elements on PQ
+    private int size;           // number of elements on PQ
+    private int[] pq;           // binary heap using 1-based indexing
+    private int[] indexOfPq;    // Maintains the index of "keys" in pq.
+                                // i.e. indexOfPq[pq[i]] = pq[indexOfPq[i]] = i
+    private Key[] keys;         // keys[i] = priority of i
 
     /**
      * Initializes an empty indexed priority queue with indices between {@code 0}
-     * and {@code maxN - 1}.
+     * and {@code capacity - 1}.
      *
-     * @param maxN the keys on this priority queue are index from {@code 0}
-     *             {@code maxN - 1}
-     * @throws IllegalArgumentException if {@code maxN < 0}
+     * @param capacity the keys on this priority queue are index from {@code 0}
+     *             {@code capacity - 1}
+     * @throws IllegalArgumentException if {@code capacity < 0}
      */
     @SuppressWarnings("unchecked")
-    public IndexPriorityQueue(int maxN) {
-        if (maxN < 0) throw new IllegalArgumentException();
-        this.maxN = maxN;
+    public IndexPriorityQueue(int capacity) {
+        if (capacity < 0) throw new IllegalArgumentException();
+        this.capacity = capacity;
         size = 0;
-        keys = (Key[]) new Comparable[maxN + 1];    // make this of length maxN??
-        pq = new int[maxN + 1];
-        qp = new int[maxN + 1];                   // make this of length maxN??
-        for (int i = 0; i <= maxN; i++)
-            qp[i] = -1;
+        keys = (Key[]) new Comparable[capacity + 1];         // make this of length capacity??
+        pq = new int[capacity + 1];
+        indexOfPq = new int[capacity + 1];                   // make this of length capacity??
+        for (int i = 0; i <= capacity; i++)
+            indexOfPq[i] = -1;
     }
 
     /**
@@ -46,11 +47,11 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
      * @param i an index
      * @return {@code true} if {@code i} is an index on this priority queue;
      * {@code false} otherwise
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws IllegalArgumentException unless {@code 0 <= i < capacity}
      */
     public boolean contains(int i) {
-        if (i < 0 || i >= maxN) throw new IllegalArgumentException();
-        return qp[i] != -1;
+        if (i < 0 || i >= capacity) throw new IllegalArgumentException();
+        return indexOfPq[i] != -1;
     }
 
     /**
@@ -67,15 +68,15 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
      *
      * @param i   an index
      * @param key the key to associate with index {@code i}
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws IllegalArgumentException unless {@code 0 <= i < capacity}
      * @throws IllegalArgumentException if there already is an item associated
      *                                  with index {@code i}
      */
     public void insert(int i, Key key) {
-        if (i < 0 || i >= maxN) throw new IllegalArgumentException();
+        if (i < 0 || i >= capacity) throw new IllegalArgumentException();
         if (contains(i)) throw new IllegalArgumentException("index is already in the priority queue");
         size++;
-        qp[i] = size;
+        indexOfPq[i] = size;
         pq[size] = i;
         keys[i] = key;
         swim(size);
@@ -115,7 +116,7 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
         exch(1, size--);
         sink(1);
         assert min == pq[size + 1];
-        qp[min] = -1;        // delete
+        indexOfPq[min] = -1;        // delete
         keys[min] = null;    // to help with garbage collection
         pq[size + 1] = -1;        // not needed
         return min;
@@ -126,11 +127,11 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
      *
      * @param i the index of the key to return
      * @return the key associated with index {@code i}
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws IllegalArgumentException unless {@code 0 <= i < capacity}
      * @throws NoSuchElementException   no key is associated with index {@code i}
      */
     public Key keyOf(int i) {
-        if (i < 0 || i >= maxN) throw new IllegalArgumentException();
+        if (i < 0 || i >= capacity) throw new IllegalArgumentException();
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
         else return keys[i];
     }
@@ -140,15 +141,15 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
      *
      * @param i   the index of the key to change
      * @param key change the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws IllegalArgumentException unless {@code 0 <= i < capacity}
      * @throws NoSuchElementException   no key is associated with index {@code i}
      */
     public void changeKey(int i, Key key) {
-        if (i < 0 || i >= maxN) throw new IllegalArgumentException();
+        if (i < 0 || i >= capacity) throw new IllegalArgumentException();
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
         keys[i] = key;
-        swim(qp[i]);
-        sink(qp[i]);
+        swim(indexOfPq[i]);
+        sink(indexOfPq[i]);
     }
 
     /**
@@ -156,7 +157,7 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
      *
      * @param i   the index of the key to change
      * @param key change the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws IllegalArgumentException unless {@code 0 <= i < capacity}
      * @deprecated Replaced by {@code changeKey(int, Key)}.
      */
     @Deprecated
@@ -169,17 +170,17 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
      *
      * @param i   the index of the key to decrease
      * @param key decrease the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws IllegalArgumentException unless {@code 0 <= i < capacity}
      * @throws IllegalArgumentException if {@code key >= keyOf(i)}
      * @throws NoSuchElementException   no key is associated with index {@code i}
      */
     public void decreaseKey(int i, Key key) {
-        if (i < 0 || i >= maxN) throw new IllegalArgumentException();
+        if (i < 0 || i >= capacity) throw new IllegalArgumentException();
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
         if (keys[i].compareTo(key) <= 0)
             throw new IllegalArgumentException("Calling decreaseKey() with given argument would not strictly decrease the key");
         keys[i] = key;
-        swim(qp[i]);
+        swim(indexOfPq[i]);
     }
 
     /**
@@ -187,35 +188,35 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
      *
      * @param i   the index of the key to increase
      * @param key increase the key associated with index {@code i} to this key
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws IllegalArgumentException unless {@code 0 <= i < capacity}
      * @throws IllegalArgumentException if {@code key <= keyOf(i)}
      * @throws NoSuchElementException   no key is associated with index {@code i}
      */
     public void increaseKey(int i, Key key) {
-        if (i < 0 || i >= maxN) throw new IllegalArgumentException();
+        if (i < 0 || i >= capacity) throw new IllegalArgumentException();
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
         if (keys[i].compareTo(key) >= 0)
             throw new IllegalArgumentException("Calling increaseKey() with given argument would not strictly increase the key");
         keys[i] = key;
-        sink(qp[i]);
+        sink(indexOfPq[i]);
     }
 
     /**
      * Remove the key associated with index {@code i}.
      *
      * @param i the index of the key to remove
-     * @throws IllegalArgumentException unless {@code 0 <= i < maxN}
+     * @throws IllegalArgumentException unless {@code 0 <= i < capacity}
      * @throws NoSuchElementException   no key is associated with index {@code i}
      */
     public void delete(int i) {
-        if (i < 0 || i >= maxN) throw new IllegalArgumentException();
+        if (i < 0 || i >= capacity) throw new IllegalArgumentException();
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-        int index = qp[i];
+        int index = indexOfPq[i];
         exch(index, size--);
         swim(index);
         sink(index);
         keys[i] = null;
-        qp[i] = -1;
+        indexOfPq[i] = -1;
     }
 
 
@@ -230,8 +231,8 @@ public class IndexPriorityQueue<Key extends Comparable<Key>> implements Iterable
         int swap = pq[i];
         pq[i] = pq[j];
         pq[j] = swap;
-        qp[pq[i]] = i;
-        qp[pq[j]] = j;
+        indexOfPq[pq[i]] = i;
+        indexOfPq[pq[j]] = j;
     }
 
 
