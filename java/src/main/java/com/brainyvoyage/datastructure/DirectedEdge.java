@@ -19,6 +19,8 @@ public class DirectedEdge {
         return this.sink;
     }
 
+    public double weight() { return weight; }
+
     @Override
     public String toString() {
         return String.format("< %s -> %s : %.2f>", this.source, this.sink, this.weight);
