@@ -6,20 +6,20 @@ public class KmpSubstringMatch {
 
     public KmpSubstringMatch(String pattern) {
         this.pattern = pattern;
-        int radix = 256;
         int patternLength = pattern.length();
+        int radix = 256;
 
         dfa = new int[radix][patternLength];
-        dfa[this.pattern.charAt(0)][0] = 1;
+        int currentState = 0;
+        int fallbackState;
+        dfa[this.pattern.charAt(0)][currentState] = 1;
 
-        for (int mismatchIndex = 0, patternIndex = 1; patternIndex < patternLength; patternIndex++) {
+        for (fallbackState = 0, currentState = 1; currentState < patternLength; currentState++) {
+            for (int alphabet = 0; alphabet < radix; alphabet++)
+                dfa[alphabet][currentState] = dfa[alphabet][fallbackState];
 
-            for (int ch = 0; ch < radix; ch++) {
-                dfa[ch][patternIndex] = dfa[ch][mismatchIndex];
-            }
-
-            dfa[this.pattern.charAt(patternIndex)][patternIndex] = patternIndex + 1;
-            mismatchIndex = dfa[this.pattern.charAt(patternIndex)][mismatchIndex];
+            dfa[this.pattern.charAt(currentState)][currentState] = currentState + 1;
+            fallbackState = dfa[this.pattern.charAt(currentState)][fallbackState];
         }
     }
 
