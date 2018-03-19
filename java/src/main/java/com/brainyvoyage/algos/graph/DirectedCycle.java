@@ -25,14 +25,14 @@ public class DirectedCycle {
         onStack[source] = true;
         marked[source] = true;
 
-        for(int connectedVertex: digraph.adj(source)) {
+        for (int connectedVertex : digraph.adj(source)) {
             if (this.hasCycle()) return;
-            else if(!marked[connectedVertex]) {
+            else if (!marked[connectedVertex]) {
                 edgeTo[connectedVertex] = source;
                 dfs(digraph, connectedVertex);
-            }else if(onStack[connectedVertex]) {
+            } else if (onStack[connectedVertex]) {
                 cycle = new Stack<>();
-                for(int vertex = source; vertex != connectedVertex; vertex = edgeTo[vertex])
+                for (int vertex = source; vertex != connectedVertex; vertex = edgeTo[vertex])
                     cycle.push(vertex);
                 cycle.push(connectedVertex);
                 cycle.push(source);

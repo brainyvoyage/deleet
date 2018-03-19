@@ -29,6 +29,10 @@ public class DepthFirstSearch {
         return marked[vertex];
     }
 
+    /**
+     * Number of vertices connected to source vertex
+     * @return
+     */
     public int count() {
         return count;
     }
