@@ -9,7 +9,7 @@ public class LinkedList<Item> implements Iterable<Item> {
         Node<Item> next;
     }
 
-    private int size;
+
 
     private class ListIterator implements Iterator<Item> {
         private Node<Item> current = head;
@@ -28,8 +28,9 @@ public class LinkedList<Item> implements Iterable<Item> {
             return item;
         }
     }
-
+    private int size;
     private Node<Item> head;
+    private Node<Item> last;
 
     @Override
     public Iterator<Item> iterator() {
@@ -46,8 +47,29 @@ public class LinkedList<Item> implements Iterable<Item> {
         head = new Node<>();
         head.item = item;
         head.next = currentHead;
+        if (currentHead == null) last = head;
         size++;
     }
+
+    public void append(Item item) {
+        Node<Item> node = new Node<>();
+        node.item = item;
+        node.next = null;
+        if (last != null) last.next = node;
+        last = node;
+        if (head == null) head = node;
+        size++;
+    }
+
+    public Item getHead(){
+        return head.item;
+    }
+
+    public Item getLast() {
+        return last.item;
+    }
+
+
 
     public boolean isEmpty() {
         return head == null;
