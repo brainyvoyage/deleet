@@ -78,4 +78,17 @@ public class Tries<Value> {
         }
     }
 
+    public String longestPrefixOf(String key) {
+        int len = search(root, key, 0, 0);
+        return key.substring(0, len);
+    }
+
+    private int search(Node node, final String key, int index, int lengthSofar) {
+        if(node == null) return lengthSofar;
+        if(node.value == null) lengthSofar = index;
+        if(key.length() == index) return lengthSofar;
+
+        return search(node.next[key.charAt(index)], key, index + 1, lengthSofar);
+    }
+
 }
