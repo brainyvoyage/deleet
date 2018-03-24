@@ -3,39 +3,9 @@ package com.brainyvoyage.datastructure;
 import java.util.Iterator;
 
 public class LinkedList<Item> implements Iterable<Item> {
-
-    private class Node<Item> {
-        Item item;
-        Node<Item> next;
-    }
-
-
-
-    private class ListIterator implements Iterator<Item> {
-        private Node<Item> current = head;
-
-        public boolean hasNext() {
-            return current != null;
-        }
-
-        public void remove() {
-            // TODO: Not yet Implemented
-        }
-
-        public Item next() {
-            Item item = current.item;
-            current = current.next;
-            return item;
-        }
-    }
-    private int size;
     private Node<Item> head;
     private Node<Item> last;
-
-    @Override
-    public Iterator<Item> iterator() {
-        return new ListIterator();
-    }
+    private int size;
 
     /**
      * Adds item at the beginning of the list
@@ -61,6 +31,14 @@ public class LinkedList<Item> implements Iterable<Item> {
         size++;
     }
 
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public int size() {
+        return size;
+    }
+
     public Item getHead(){
         return head.item;
     }
@@ -69,13 +47,30 @@ public class LinkedList<Item> implements Iterable<Item> {
         return last.item;
     }
 
-
-
-    public boolean isEmpty() {
-        return head == null;
+    @Override
+    public Iterator<Item> iterator() {
+        return new ListIterator();
     }
 
-    public int size() {
-        return size;
+    private class Node<Item> {
+        Item item;
+        Node<Item> next;
+    }
+    private class ListIterator implements Iterator<Item> {
+        private Node<Item> current = head;
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public void remove() {
+            // TODO: Not yet Implemented
+        }
+
+        public Item next() {
+            Item item = current.item;
+            current = current.next;
+            return item;
+        }
     }
 }
