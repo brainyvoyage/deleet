@@ -1,11 +1,17 @@
 package com.brainyvoyage.datastructure;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 public class LinkedList<Item> implements Iterable<Item> {
-    private Node<Item> head;
-    private Node<Item> last;
+    private Optional<Node<Item>> head;
+    private Optional<Node<Item>> last;
     private int size;
+
+    public LinkedList() {
+        last = Optional.ofNullable(null);
+        head = Optional.ofNullable(null);
+    }
 
     /**
      * Adds item at the beginning of the list
@@ -13,26 +19,29 @@ public class LinkedList<Item> implements Iterable<Item> {
      * @param item
      */
     public void add(Item item) {
-        Node<Item> currentHead = this.head;
-        head = new Node<>();
-        head.item = item;
-        head.next = currentHead;
-        if (currentHead == null) last = head;
+        Optional<Node<Item>> currentHead = this.head;
+        Node<Item> node = new Node<>();
+        node.item = item;
+        node.next = currentHead;
+        head = Optional.of(node);
+        if(!currentHead.isPresent()) last = head;
+//        if (currentHead == null) last = Optional.of(head);
         size++;
     }
 
     public void append(Item item) {
         Node<Item> node = new Node<>();
         node.item = item;
-        node.next = null;
-        if (last != null) last.next = node;
-        last = node;
-        if (head == null) head = node;
+        node.next = Optional.ofNullable(null);
+        last.ifPresent(itemNode -> itemNode.next = Optional.of(node));
+        last = Optional.of(node);
+        if(!head.isPresent()) head = Optional.of(node);
+//        if (head == null) head = node;
         size++;
     }
 
     public boolean isEmpty() {
-        return head == null;
+        return size == 0;
     }
 
     public int size() {
@@ -40,11 +49,11 @@ public class LinkedList<Item> implements Iterable<Item> {
     }
 
     public Item getHead(){
-        return head.item;
+        return head.get().item;
     }
 
     public Item getLast() {
-        return last.item;
+        return last.get().item;
     }
 
     @Override
@@ -54,13 +63,13 @@ public class LinkedList<Item> implements Iterable<Item> {
 
     private class Node<Item> {
         Item item;
-        Node<Item> next;
+        Optional<Node<Item>> next;
     }
     private class ListIterator implements Iterator<Item> {
-        private Node<Item> current = head;
+        private Optional<Node<Item>> current = head;
 
         public boolean hasNext() {
-            return current != null;
+            return current.isPresent();
         }
 
         public void remove() {
@@ -68,8 +77,8 @@ public class LinkedList<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            Item item = current.item;
-            current = current.next;
+            Item item = current.get().item;
+            current = current.get().next;
             return item;
         }
     }
